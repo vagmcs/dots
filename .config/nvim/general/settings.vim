@@ -2,6 +2,7 @@ syntax enable
 set ruler
 set splitright
 set splitbelow
+set termguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Numbers, Tabs and Spaces
