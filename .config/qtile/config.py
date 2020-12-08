@@ -128,7 +128,7 @@ screens = [
                     rounded = False
                 ),
                 widget.Prompt(
-                    prompt = "search: ",
+                    prompt = "spawn: ",
                     font = "Hack Regular",
                     fontsize = 16
                 ),
@@ -146,6 +146,17 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                widget.CheckUpdates(),
+                widget.CurrentLayout(
+                    font = "Hack Regular",
+                    fontsize = 14
+                ),
+                widget.CurrentLayoutIcon(),
+                widget.KeyboardLayout(),
+                widget.Net(),
+                widget.Wlan(interface="wlo1"),
+                widget.PulseVolume(),
+                widget.Volume(),
                 widget.ThermalSensor(
                     font = "Hack Regular",
                     fontsize = 14
