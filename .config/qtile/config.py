@@ -73,15 +73,17 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 ]
 
-group_names = [("WWW", {'layout': 'monadtall'}),
-               ("DEV", {'layout': 'monadtall'}),
-               ("SYS", {'layout': 'monadtall'}),
-               ("DOC", {'layout': 'monadtall'}),
-               ("VBOX", {'layout': 'monadtall'}),
-               ("CHAT", {'layout': 'monadtall'}),
-               ("MUSIC", {'layout': 'monadtall'}),
-               ("VIDEO", {'layout': 'monadtall'}),
-               ("GFX", {'layout': 'floating'})]
+group_names = [
+    ("WWW", {'layout': 'monadtall'}),
+    ("DEV", {'layout': 'monadtall'}),
+    ("SYS", {'layout': 'monadtall'}),
+    ("DOC", {'layout': 'monadtall'}),
+    ("VBOX", {'layout': 'monadtall'}),
+    ("CHAT", {'layout': 'monadtall'}),
+    ("MUSIC", {'layout': 'monadtall'}),
+    ("VIDEO", {'layout': 'monadtall'}),
+    ("GFX", {'layout': 'floating'})
+]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -89,13 +91,16 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
-llayouts = [
+layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2),
+    layout.Stack(num_stacks=2, margin=8),
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    # layout.MonadTall(),
+    layout.MonadTall(margin=10,
+                     border_width = 5,
+                     border_focus="#E1ACFF",
+                     border_normal="#1D2330")
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -104,10 +109,28 @@ llayouts = [
     # layout.Zoomy(),
 ]
 
+polar_night_colors = [
+    "#2e3440", "#3b4252", "#434c5e", "#4c566a"
+]
+
+snow_storm_colors = [
+    "#d8dee9", "#e5e9f0", "#eceff4"
+]
+
+frost_colors = [
+    "#8fbcbb", "#88c0d0", "#81a1c1", "#5e81ac"
+]
+
+aurora_colors = [
+    "#bf616a", "#d08770", "#ebcb8b", "#a3be8c", "#b48ead"
+]
+
 widget_defaults = dict(
-    font='Hack',
-    fontsize=12,
-    padding=3,
+    font = 'Hack',
+    fontsize = 14,
+    padding = 3,
+    background = polar_night_colors[0],
+    foreground = snow_storm_colors[2]
 )
 extension_defaults = widget_defaults.copy()
 
@@ -125,7 +148,13 @@ screens = [
                     padding_x = 3,
                     padding_y = 5,
                     borderwidth = 3,
-                    rounded = False
+                    rounded = False,
+                    active = snow_storm_colors[2],
+                    inactive = snow_storm_colors[2],
+                    highlight_color = aurora_colors[0],
+                    this_current_screen_border = aurora_colors[0],
+                    this_screen_border = aurora_colors[1],
+                    foreground = snow_storm_colors[2]
                 ),
                 widget.Prompt(
                     prompt = "spawn: ",
@@ -134,18 +163,20 @@ screens = [
                 ),
                 widget.Sep(
                     linewidth = 0,
-                    padding = 10
+                    padding = 10,
+                    foreground = snow_storm_colors[2]
                 ),
                 widget.WindowName(
                     font = "Hack Bold",
-                    fontsize = 14
+                    fontsize = 14,
+                    foreground = aurora_colors[4],
                 ),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
+                #widget.Chord(
+                #    chords_colors={
+                #        'launch': ("#ff0000", "#ffffff"),
+                #    },
+                #    name_transform=lambda name: name.upper(),
+                #),
                 widget.CheckUpdates(),
                 widget.CurrentLayout(
                     font = "Hack Regular",
@@ -153,10 +184,29 @@ screens = [
                 ),
                 widget.CurrentLayoutIcon(),
                 widget.KeyboardLayout(),
-                widget.Net(),
+                widget.Net(
+                    #format = {'{down} {up}'},
+                    background = aurora_colors[4]
+                ),
                 widget.Wlan(interface="wlo1"),
                 widget.PulseVolume(),
-                widget.Volume(),
+                widget.TextBox(
+                    text = "Vol:",
+                    foreground = snow_storm_colors[2],
+                    background = aurora_colors[3]
+                ),
+                widget.Volume(
+                    font = "Hack Bold",
+                    foreground = snow_storm_colors[2],
+                    background = aurora_colors[3]
+                ),
+                widget.TextBox(
+                    text = "",
+                    background = aurora_colors[3],
+                    foreground = aurora_colors[4],
+                    fontsize = 45,
+                    padding = 0
+                ),
                 widget.ThermalSensor(
                     font = "Hack Regular",
                     fontsize = 14
@@ -169,11 +219,19 @@ screens = [
                     font = "Hack Regular",
                     fontsize = 14
                 ),
-                widget.Systray(),
                 widget.Clock(
                     font = "Hack Regular",
-                    fontsize = 14,
-                    format='%a %b %d, %H:%M'
+                    fontsize = 16,
+                    format='%a %b %d, [%H:%M]'
+                ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10,
+                    foreground = polar_night_colors[0],
+                    background = aurora_colors[4]
+                ),
+                widget.Systray(
+                    background = polar_night_colors[0]
                 )
             ],
             24,
