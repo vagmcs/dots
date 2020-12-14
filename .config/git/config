@@ -1,0 +1,10 @@
+[user]
+	name = Evangelos Michelioudakis
+	email = vagmcs@gmail.com
+
+[core]
+	editor = nvim
+	autocrlf = input
+
+[http]
+	sslVerify = false
