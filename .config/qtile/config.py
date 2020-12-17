@@ -1,11 +1,10 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
+#        _   _ _
+#   __ _| |_(_) | ___
+#  / _` | __| | |/ _ \
+# | (_| | |_| | |  __/
+#  \__, |\__|_|_|\___|
+#     |_|
+# 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -31,10 +30,13 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-mod = "mod4"
-terminal = guess_terminal()
+mod = "mod4"                    # Set mod key to SUPER 
+app_mod = "mod1"                # Set application mod key to ALT
+terminal = guess_terminal()     # Guess terminal application
 
 keys = [
+
+
     # Switch between windows in current stack pane
     Key([mod], "k", lazy.layout.down(),
         desc="Move focus down in stack pane"),
@@ -61,18 +63,34 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+    Key([mod], "Return", lazy.spawn(terminal),
+        desc="Launch terminal application"),
+
+    Key([mod, "shift"], "Return", lazy.spawn("rofi -show run"),
+        desc="Launch rofi launcher"),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "Tab", lazy.next_layout(),
+        desc="Toggle between layouts"),
 
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
+    Key([mod], "w", lazy.window.kill(),
+        desc="Kill focused window"),
+
+    Key([mod, "control"], "r", lazy.restart(),
+        desc="Restart qtile"),
+
+    Key([mod, "control"], "q", lazy.shutdown(),
+        desc="Shutdown qtile"),
+
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
 ]
 
+
+#
+# Groups
+#
 group_names = [
     ("WWW", {'layout': 'monadtall'}),
     ("DEV", {'layout': 'monadtall'}),
@@ -91,40 +109,48 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
+
+#
+# Nord color scheme
+#
+polar_night_colors = ["#2e3440", "#3b4252", "#434c5e", "#4c566a"]
+
+snow_storm_colors = ["#d8dee9", "#e5e9f0", "#eceff4"]
+
+frost_colors = ["#8fbcbb", "#88c0d0", "#81a1c1", "#5e81ac"]
+
+aurora_colors = ["#bf616a", "#d08770", "#ebcb8b", "#a3be8c", "#b48ead"]
+
+
+#
+# Layouts
+#
+layout_config = {
+    "margin": 8,
+    "border_width": 4,
+    "border_focus": aurora_colors[3],
+    "border_normal": snow_storm_colors[0]
+}
+
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2, margin=8),
-    # layout.Bsp(),
-    # layout.Columns(),
-    # layout.Matrix(),
-    layout.MonadTall(margin=10,
-                     border_width = 5,
-                     border_focus="#E1ACFF",
-                     border_normal="#1D2330")
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.Stack(num_stacks=2, **layout_config),
+    layout.Bsp(),
+    layout.Columns(),
+    layout.Matrix(**layout_config),
+    layout.MonadTall(**layout_config),
+    layout.MonadWide(**layout_config),
+    layout.RatioTile(),
+    layout.Tile(),
+    layout.TreeTab(),
+    layout.VerticalTile(),
+    layout.Floating(**layout_config)
 ]
 
-polar_night_colors = [
-    "#2e3440", "#3b4252", "#434c5e", "#4c566a"
-]
 
-snow_storm_colors = [
-    "#d8dee9", "#e5e9f0", "#eceff4"
-]
-
-frost_colors = [
-    "#8fbcbb", "#88c0d0", "#81a1c1", "#5e81ac"
-]
-
-aurora_colors = [
-    "#bf616a", "#d08770", "#ebcb8b", "#a3be8c", "#b48ead"
-]
-
+#
+# Widgets
+#
 widget_defaults = dict(
     font = 'Hack',
     fontsize = 14,
@@ -134,110 +160,96 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.Sep(
-                    linewidth = 0,
-                    padding = 6
-                ),
-                widget.GroupBox(
-                    font = "Hack Bold",
-                    fontsize = 12,
-                    padding_x = 3,
-                    padding_y = 5,
-                    borderwidth = 3,
-                    rounded = False,
-                    active = snow_storm_colors[2],
-                    inactive = snow_storm_colors[2],
-                    highlight_color = aurora_colors[0],
-                    this_current_screen_border = aurora_colors[0],
-                    this_screen_border = aurora_colors[1],
-                    foreground = snow_storm_colors[2]
-                ),
-                widget.Prompt(
-                    prompt = "spawn: ",
-                    font = "Hack Regular",
-                    fontsize = 16
-                ),
-                widget.Sep(
-                    linewidth = 0,
-                    padding = 10,
-                    foreground = snow_storm_colors[2]
-                ),
-                widget.WindowName(
-                    font = "Hack Bold",
-                    fontsize = 14,
-                    foreground = aurora_colors[4],
-                ),
-                #widget.Chord(
-                #    chords_colors={
-                #        'launch': ("#ff0000", "#ffffff"),
-                #    },
-                #    name_transform=lambda name: name.upper(),
-                #),
-                widget.CheckUpdates(),
-                widget.CurrentLayout(
-                    font = "Hack Regular",
-                    fontsize = 14
-                ),
-                widget.CurrentLayoutIcon(),
-                widget.KeyboardLayout(),
-                widget.Net(
-                    #format = {'{down} {up}'},
-                    background = aurora_colors[4]
-                ),
-                widget.Wlan(interface="wlo1"),
-                widget.PulseVolume(),
-                widget.TextBox(
-                    text = "Vol:",
-                    foreground = snow_storm_colors[2],
-                    background = aurora_colors[3]
-                ),
-                widget.Volume(
-                    font = "Hack Bold",
-                    foreground = snow_storm_colors[2],
-                    background = aurora_colors[3]
-                ),
-                widget.TextBox(
-                    text = "",
-                    background = aurora_colors[3],
-                    foreground = aurora_colors[4],
-                    fontsize = 45,
-                    padding = 0
-                ),
-                widget.ThermalSensor(
-                    font = "Hack Regular",
-                    fontsize = 14
-                ),
-                widget.CPU(
-                    font = "Hack Regular",
-                    fontsize = 14
-                ),
-                widget.Memory(
-                    font = "Hack Regular",
-                    fontsize = 14
-                ),
-                widget.Clock(
-                    font = "Hack Regular",
-                    fontsize = 16,
-                    format='%a %b %d, [%H:%M]'
-                ),
-                widget.Sep(
-                    linewidth = 0,
-                    padding = 10,
-                    foreground = polar_night_colors[0],
-                    background = aurora_colors[4]
-                ),
-                widget.Systray(
-                    background = polar_night_colors[0]
-                )
-            ],
-            24,
-        ),
+widget_list = [
+    widget.Sep(
+        linewidth = 0,
+        padding = 6
     ),
+    widget.GroupBox(
+        font = "Hack Bold",
+        fontsize = 12,
+        padding_x = 3,
+        padding_y = 5,
+        borderwidth = 3,
+        rounded = False,
+        active = snow_storm_colors[2],
+        inactive = snow_storm_colors[2],
+        highlight_color = aurora_colors[0],
+        this_current_screen_border = aurora_colors[0],
+        this_screen_border = aurora_colors[1],
+        foreground = snow_storm_colors[2],
+        highlight_method = "line"
+    ),
+    widget.Prompt(
+        prompt = "spawn: ",
+        font = "Hack Regular",
+        fontsize = 16
+    ),
+    widget.Sep(
+        linewidth = 0,
+        padding = 10,
+        foreground = snow_storm_colors[2]
+    ),
+    widget.WindowName(
+        font = "Hack Bold",
+        fontsize = 14,
+        foreground = aurora_colors[4],
+    ),
+    widget.CheckUpdates(),
+    widget.PulseVolume(),
+    widget.TextBox(
+        text = "Vol:",
+        foreground = snow_storm_colors[2],
+        background = aurora_colors[3]
+    ),
+    widget.Volume(
+        font = "Hack Bold",
+        foreground = snow_storm_colors[2],
+        background = aurora_colors[3]
+    ),
+    widget.TextBox(
+            text = "",
+            background = aurora_colors[3],
+            foreground = aurora_colors[4],
+            fontsize = 45,
+            padding = 0
+    ),
+    widget.ThermalSensor(
+        font = "Hack Regular",
+        fontsize = 14
+    ),
+    widget.CPU(
+        font = "Hack Regular",
+        fontsize = 14
+    ),
+    widget.Memory(
+        font = "Hack Regular",
+        fontsize = 14
+    ),
+    widget.CurrentLayoutIcon(),
+    widget.CurrentLayout(
+        font = "Hack Regular",
+        fontsize = 14
+    ),
+    widget.Clock(
+        font = "Hack Regular",
+        fontsize = 14,
+        format = "%a %d %b [ %H:%M ]"
+    ),
+    widget.Sep(
+        linewidth = 0,
+        padding = 5
+    ),
+    widget.KeyboardLayout(),
+    widget.Systray()
 ]
+
+
+#
+# Screens configuration
+#
+screens = [Screen(top=bar.Bar(widgets=widget_list, opacity=1, size=24))]
+
 
 # Drag floating layouts.
 mouse = [
@@ -274,12 +286,4 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "LG3D" # Hack for Java UI toolkit
