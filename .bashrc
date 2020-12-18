@@ -1,3 +1,21 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# History length
+HISTSIZE=10000
+HISTFILESIZE=5000
+
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# PS1 configuration
+PS1="\[\033[01;32m\]\u@\h[\W]\[\033[33m\]\$(parse_git_branch)\[\033[01;32m\]>\[$(tput sgr0)\] "
+
+# Run neofetch at startup
 neofetch
 
 USR_HOME="${HOME}/Usr"
@@ -18,9 +36,6 @@ alias cat='bat'
 alias grep='grep --color=auto'
 alias ping='prettyping --nolegend'
 alias config='git --git-dir=${HOME}/dotfiles --work-tree=${HOME}'
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 # Java
 JAVA_HOME="${USR_HOME}/opt/java"
