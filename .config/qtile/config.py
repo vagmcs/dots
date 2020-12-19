@@ -139,12 +139,12 @@ mouse = [
 # GROUPS
 #
 group_names = [
-    (" WWW", {'layout': 'monadtall'}),
-    (" DEV", {'layout': 'monadtall'}),
     (" SYS", {'layout': 'monadtall'}),
+    (" DEV", {'layout': 'monadtall'}),
+    (" WWW", {'layout': 'monadtall'}),
     (" DOC", {'layout': 'monadtall'}),
-    (" EXP", {'layout': 'monadtall'}),
-    (" MSG", {'layout': 'monadtall'}),
+    (" SCI", {'layout': 'monadtall'}),
+    (" MAIL", {'layout': 'monadtall'}),
     (" MUS", {'layout': 'monadtall'}),
     (" VID", {'layout': 'monadtall'}),
     (" FUN", {'layout': 'floating'})
@@ -169,16 +169,10 @@ layout_config = {
 
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2, **layout_config),
-    layout.Bsp(),
-    layout.Columns(),
+    layout.Bsp(**layout_config),
     layout.Matrix(**layout_config),
     layout.MonadTall(**layout_config),
     layout.MonadWide(**layout_config),
-    layout.RatioTile(),
-    layout.Tile(),
-    layout.TreeTab(),
-    layout.VerticalTile(),
     layout.Floating(**layout_config)
 ]
 
@@ -188,7 +182,7 @@ layouts = [
 #
 widget_defaults = dict(
     font = FONT,
-    fontsize = 16,
+    fontsize = 15,
     padding = 3,
     background = COLORS[0],
     foreground = COLORS[5]
@@ -196,96 +190,69 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 widget_list = [
-    widget.Sep(
-        linewidth = 0,
-        padding = 6
-    ),
+    widget.Sep(linewidth = 0, padding = 5),
     widget.GroupBox(
-        padding_x = 3,
-        padding_y = 5,
-        borderwidth = 3,
-        rounded = False,
-        active = COLORS[5],
+        rounded = True,
+        #padding_x = 2,
+        padding_y = 6,
+        #borderwidth = 3,
+        active = COLORS[12],
         inactive = COLORS[5],
-        highlight_color = [COLORS[0], COLORS[12]],
-        this_current_screen_border = COLORS[12],
-        this_screen_border = COLORS[12],
-        foreground = COLORS[5],
-        highlight_method = "line"
+        block_highlight_text_color = COLORS[5],
+        this_current_screen_border = COLORS[11],
+        this_screen_border = COLORS[11],
+        highlight_method = "block",
     ),
-    widget.Prompt(
-        prompt = "spawn: ",
-        font = FONT,
-        fontsize = 16
-    ),
-    widget.Sep(
-        linewidth = 0,
-        padding = 10,
-        foreground = COLORS[5]
-    ),
-    widget.WindowName(
-        font = "Hack Bold",
-        fontsize = 14,
-        foreground = COLORS[14]
-    ),
-    widget.CheckUpdates(),
-    widget.PulseVolume(),
-    widget.TextBox(
-        text = "Vol:",
-        foreground = COLORS[5],
-        background = COLORS[13]
-    ),
-    widget.Volume(
-        font = "Hack Bold",
-        foreground = COLORS[5],
-        background = COLORS[13]
-    ),
-    widget.TextBox(
-        text = "",
-        background = COLORS[13],
-        foreground = COLORS[14],
-        fontsize = 45,
-        padding = 0
+    widget.Spacer(length=bar.STRETCH),
+    widget.CPU(
+        format = " {load_percent}%",
+        background = COLORS[11]
     ),
     widget.ThermalSensor(
-        font = FONT,
-        fontsize = 14,
-        foreground = COLORS[5],
-        background = COLORS[14]
-    ),
-    widget.CPU(
-        font = FONT,
-        fontsize = 14
+        fmt = " {}",
+        background = COLORS[11]
     ),
     widget.Memory(
-        font = FONT,
-        fontsize = 14
+        format = " {MemUsed}MB",
+        background = COLORS[11]
     ),
-    widget.CurrentLayoutIcon(),
-    widget.CurrentLayout(
-        font = FONT,
-        fontsize = 14,
-        background = COLORS[13]
+    widget.TextBox(
+        text = "Layout:",
+        background = COLORS[8]
+    ),
+    widget.CurrentLayoutIcon(
+        scale = 0.7,
+        background = COLORS[8]
+    ),
+    widget.Volume(
+        fmt = " {}",
+        background = COLORS[9]
     ),
     widget.Clock(
-        font = FONT,
-        fontsize = 14,
-        format = "%a %d %b [ %H:%M ]",
-        background = COLORS[14]
+        format = " %a %d %b  %H:%M",
+        background = COLORS[3]
     ),
     widget.Sep(
         linewidth = 0,
         padding = 5
     ),
-    widget.KeyboardLayout(),
-    widget.Systray()
+    widget.KeyboardLayout(
+        configured_keyboards=["us", "gr"]
+    )
 ]
 
 
 #
 # SCREENS
 #
-screens = [Screen(top=bar.Bar(widgets=widget_list, opacity=0.95, size=28))]
+screens = [Screen(
+    top=bar.Bar(widgets = widget_list, margin = [4, 6, 1, 6], opacity = 0.85, size = 28),
+    bottom=bar.Bar(background=COLORS[0], widgets=[
+        widget.WindowName(foreground = COLORS[14], font = FONT + " Bold"),
+        widget.CheckUpdates(background=COLORS[0], display_format=" : {updates}", fontsize = 15),
+        widget.Systray(icon_size=22, padding=10)
+    ], margin = [1, 6, 4, 6], opacity = 0.85, size = 28)
+)]
 
 
 dgroups_key_binder = None
