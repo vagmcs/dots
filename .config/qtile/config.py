@@ -28,8 +28,9 @@
 # IMPORTS
 #
 import os
+import subprocess
 from typing import List  # noqa: F401
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -120,6 +121,10 @@ keys = [
 
     Key([MOD], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute"))
 ]
 
 
@@ -232,10 +237,6 @@ widget_list = [
         format = " %a %d %b  %H:%M",
         background = COLORS[3]
     ),
-    widget.Sep(
-        linewidth = 0,
-        padding = 5
-    ),
     widget.KeyboardLayout(
         configured_keyboards=["us", "gr"]
     )
@@ -253,6 +254,14 @@ screens = [Screen(
         widget.Systray(icon_size=22, padding=10)
     ], margin = [1, 6, 4, 6], opacity = 0.85, size = 28)
 )]
+
+
+#
+# HOOKS
+#
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.call([HOME + "/.config/qtile/autostart.sh"])
 
 
 dgroups_key_binder = None
