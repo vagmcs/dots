@@ -73,25 +73,51 @@ COLORS = [
 #
 keys = [
 
-    # Switch between windows in current stack pane
-    Key([MOD], "k", lazy.layout.down(),
-        desc="Move focus down in stack pane"),
+    # Navigate between windows in current stack pane
+    Key([MOD], "h", lazy.layout.left(),
+        desc="Move focus right in stack pane"),
     Key([MOD], "j", lazy.layout.up(),
         desc="Move focus up in stack pane"),
+    Key([MOD], "k", lazy.layout.down(),
+        desc="Move focus down in stack pane"),
+    Key([MOD], "l", lazy.layout.right(),
+        desc="Move focus left in stack pane"),
 
-    # Move windows up or down in current stack
-    Key([MOD, "control"], "k", lazy.layout.shuffle_down(),
+    # Move windows in current stack
+     Key([MOD, "control"], "h", lazy.layout.shuffle_left(),
         desc="Move window down in current stack "),
     Key([MOD, "control"], "j", lazy.layout.shuffle_up(),
         desc="Move window up in current stack "),
+    Key([MOD, "control"], "k", lazy.layout.shuffle_down(),
+        desc="Move window down in current stack "),
+    Key([MOD, "control"], "l", lazy.layout.shuffle_right(),
+        desc="Move window up in current stack "),
+
+    # Move windows in current stack
+    Key([MOD, "shift"], "h", lazy.layout.grow_left(),
+        desc="Move window down in current stack "),
+    Key([MOD, "shift"], "j", lazy.layout.grow_up(),
+        desc="Move window up in current stack "),
+    Key([MOD, "shift"], "k", lazy.layout.grow_down(),
+        desc="Move window down in current stack "),
+    Key([MOD, "shift"], "l", lazy.layout.grow_right(),
+        desc="Move window up in current stack "),
+
+    Key([MOD, "shift"], "i", lazy.layout.increase_ratio(), desc="Inc"),
 
     # Switch window focus to other pane(s) of stack
     Key([MOD], "space", lazy.layout.next(),
         desc="Switch window focus to other pane(s) of stack"),
 
     # Swap panes of split stack
-    Key([MOD, "shift"], "space", lazy.layout.rotate(),
-        desc="Swap panes of split stack"),
+    #Key([MOD, "shift"], "space", lazy.layout.rotate(),
+        #desc="Swap panes of split stack"),
+
+    # Toggle between different layouts as defined below
+    Key([MOD, "shift"], "Tab", lazy.previous_layout(),
+        desc="Toggle between layouts"),
+    Key([MOD], "Tab", lazy.next_layout(),
+        desc="Toggle between layouts"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -106,10 +132,6 @@ keys = [
     Key([MOD, "shift"], "Return", lazy.spawn("rofi -show run"),
         desc="Launch rofi launcher"),
 
-    # Toggle between different layouts as defined below
-    Key([MOD], "Tab", lazy.next_layout(),
-        desc="Toggle between layouts"),
-
     Key([MOD], "w", lazy.window.kill(),
         desc="Kill focused window"),
 
@@ -118,9 +140,6 @@ keys = [
 
     Key([MOD, "control"], "q", lazy.shutdown(),
         desc="Shutdown qtile"),
-
-    Key([MOD], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
 
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
@@ -249,9 +268,20 @@ widget_list = [
 screens = [Screen(
     top=bar.Bar(widgets = widget_list, margin = [4, 6, 1, 6], opacity = 0.85, size = 28),
     bottom=bar.Bar(background=COLORS[0], widgets=[
-        widget.WindowName(foreground = COLORS[14], font = FONT + " Bold"),
-        widget.CheckUpdates(background=COLORS[0], display_format=" : {updates}", fontsize = 15),
-        widget.Systray(icon_size=22, padding=10)
+        widget.WindowName(
+            foreground = COLORS[14],
+            font = FONT + " Bold"
+        ),
+        widget.CheckUpdates(
+            background=COLORS[0],
+            display_format=" : {updates}",
+            fontsize = 15,
+            mouse_callbacks = {"Button1": lambda qtile: qtile.cmd_spawn("pamac-manager")}
+        ),
+        widget.Systray(
+            icon_size=24,
+            padding=10
+        )
     ], margin = [1, 6, 4, 6], opacity = 0.85, size = 28)
 )]
 
@@ -264,15 +294,20 @@ def autostart():
     subprocess.call([HOME + "/.config/qtile/autostart.sh"])
 
 
+#
+# GENERAL CONFIGURATION
+#
+main = None
+auto_fullscreen = True
+bring_front_click = True
+cursor_warp = False
 dgroups_key_binder = None
 dgroups_app_rules = []
-main = None
+focus_on_window_activation = "smart"
 follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
 
 floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
+    # Run xprop to see the wm class 
     {'wmclass': 'confirm'},
     {'wmclass': 'dialog'},
     {'wmclass': 'download'},
@@ -281,15 +316,9 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'notification'},
     {'wmclass': 'splash'},
     {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
 
-auto_fullscreen = True
-focus_on_window_activation = "smart"
-
 wmname = "LG3D" # Hack for Java UI toolkit
+
