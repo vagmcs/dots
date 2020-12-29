@@ -1,0 +1,68 @@
+configuration {
+	/** Modes **/
+	modi: "window#run#drun#ssh#file-browser";
+	combi-modi: "window#run#drun";
+	
+	/** Layout **/
+	location: 0; yoffset: 0; xoffset: 0;
+	bw: 2; padding: 5;
+	width: 40;
+	lines: 10; columns: 1;
+	eh: 1; line-margin: 1; line-padding: 1;
+	hide-scrollbar: false;
+	scrollbar-width: 4;
+	scroll-method: 1;
+	fullscreen: false;
+	
+	/** Font **/
+	font: "Hack Nerd Font 14";
+	
+	/** Theme **/
+	theme: "theme";
+	icon-theme: "Adwaita";
+	show-icons: true;
+	sidebar-mode: true;
+	
+	/** Mode appearance **/
+	display-run: " ";
+  display-drun: " ";
+  display-window: " ";
+	display-windowcd: " ";
+	display-ssh: " ";
+  display-combi: " ";
+	display-keys: " ";
+	display-file-browser: " ";
+
+	/** drun mode **/
+	drun-show-actions: false;
+	drun-display-format: "{icon} {name}";
+	drun-url-launcher: "xdg-open";
+	drun-match-fields: "name,generic,exec,categories,keywords";
+	drun-use-desktop-cache: false;
+	drun-reload-desktop-cache: false;
+	
+	/** ssh mode **/
+	parse-hosts: false;
+	parse-known-hosts: true;
+
+	/** window mode **/
+	window-format: "{w}	{c}	{t}";
+	
+	/** History **/
+	disable-history: false;
+	max-history-size: 25;
+
+	terminal: "alacritty";
+	
+	/** Search **/
+	ignored-prefixes: "Al";
+	case-sensitive: false;
+	sort: false;
+	sorting-method: "normal";
+	cycle: true;
+	auto-select: false;
+	show-match: true;
+	matching: "normal";
+	separator-style: "dash";
+	/*	filter: ;*/
+}
