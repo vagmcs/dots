@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+MODULE_HOME=$(pwd)
+PRJ_HOME=$(dirname ${MODULE_HOME})
+INST_PARENT_DIR="${HOME}/Usr/opt"
+LOG="/tmp/install.sbt.log"
+
+. `dirname $0`/poor.mans.logger.sh
+
+if [ -d "/tmp" -a -w "/tmp" -a -r "/tmp" ]; then
+	echo "" > "${LOG}"
+else
+	echo "[ ERROR ] Cannot write installation log to '${LOG}'"
+	exit 1
+fi
+
+if [ ! -d "${MODULE_HOME}" ]; then
+	log_error "Cannot find '${MODULE_HOME}' directory, make sure that you are in the correct path."
+	exit 1
+fi
+
+if [ "$1" == "clean" ]; then
+  log_warn "Cleaning any previously compiled files."
+  cd "${MODULE_HOME}"
+  sbt clean 2>&1 1>> "${LOG}"
+  cd ..
+fi
+
+# Gather information
+prj_name=$(grep -hR "name[ ][ ]*:=[ ][ ]*" "${MODULE_HOME}/project" | sed 's/name[ ][ ]*:=[ ][ ]*\"\(.*\)\"/\1/g' | sed 's/,*\r*$//' | sed 's/^[ \t]*//')
+version=$(grep "^version[ ][ ]*in[ ][ ]*ThisBuild[ ][ ]*:=[ ][ ]*" "${MODULE_HOME}/version.sbt" | sed 's/version[ ][ ]*in[ ][ ]*ThisBuild[ ][ ]*:=[ ][ ]*\"\(.*\)\"/\1/g')
+
+zipped_distribution="${MODULE_HOME}/target/universal/${prj_name}-${version}.zip"
+target="${INST_PARENT_DIR}/${prj_name}-${version}"
+
+sym_name=$(echo "${prj_name}" | awk '{print tolower($0)}')
+sym_target="${INST_PARENT_DIR}/${sym_name}"
+
+# Remove any previously created zipped universal distribution file
+if [ -f "${zipped_distribution}" ]; then
+	log_warn "Removing the previously created univeral distribution file '${zipped_distribution}'"
+  rm "${zipped_distribution}"
+fi
+
+# Build LoMRF distribution
+log_info "Attempting to build a universal distribution for module in '${MODULE_HOME}'"
+cd "${MODULE_HOME}"
+sbt dist 2>&1 1>> "${LOG}"
+cd ..
+
+if [ -f "${zipped_distribution}" ]; then
+	if [ -d "${target}" ]; then
+		log_warn "Removing old installation in '${target}'"
+		rm -rf "${target}" 2>&1 1>> "${LOG}"
+	  if [ $? -ne 0 ]; then
+    	exit_error "Unexpected error occured when removing the previous installation in '${target}'" 2
+    fi
+	fi
+	
+	log_info "Proceeding to ${prj_name} installation in '${target}'"
+	unzip "${zipped_distribution}" -d "${INST_PARENT_DIR}" 2>&1 1>> "${LOG}"
+	if [ $? -ne 0 ]; then
+		exit_error "Unexpected error occured when unziping '${zipped_distribution}' in '${INST_PARENT_DIR}'" 2
+	fi
+	log_info "Creating the symbolic link '${sym_target}' that is pointing to '${target}'"
+    
+	if [ -L "${sym_target}" ]; then
+		rm "${sym_target}" 2>&1 1>> "${LOG}"
+	fi
+
+	ln -s ${target} "${sym_target}" 2>&1 1>> "${LOG}"
+	if [ $? -ne 0 ]; then
+		exit_error "Unexpected error occured when creating the symbolic link '${sym_target}'" 3
+	fi
+
+	# make sure that all shell scripts are executable
+	for script in $(find "${target}/bin" -maxdepth 1 -type f); do 
+		script_name=$(basename ${script})
+		if [ "${script_name}" != "inc.env.sh" ]; then
+				chmod +x "${script}"
+		fi
+	done
+else
+	exit_error "Cannot find the zipped univesal distribution of ${prj_name} '${zipped_distribution}'." 3
+fi
+
+log_info "Installation of ${prj_name} is complete."
+
+echo "--------------------------------------------------------------------------------"
+echo "--- ${prj_name} is installed in '${target}' using a"
+echo "--- symbolic link '${sym_target}'."
+echo "--------------------------------------------------------------------------------"
+echo "" 
+echo "In order to call ${prj_name} from command line, extend the \$PATH enviroment"
+echo "variable using the following path: '${sym_target}/bin'"
+echo ""
+echo "--------------------------------------------------------------------------------"
+

@@ -1,27 +1,11 @@
 #!/usr/bin/env bash
 
-# Imports
-. `dirname $0`/lib/poor.mans.logger.sh
-. `dirname $0`/lib/commons.sh
+. $(dirname $0)/poor.mans.logger.sh
+. $(dirname $0)/commons.sh
 
-#
-# Display usage
-#
-usage() {
-
-	art "usb creator"
-  printf "\n"
-                                                                             
-	echo "Usage: `basename $0` <path/target.iso>"
-}
-
-#
-# Usb create function
-#
 function create() {
 
-	user=`whoami`
-	log_info "You are logged in as '$user'."
+	log_info "You are logged in as '$USER'."
 
 	# Collect available usb drives
 	declare -A drivenames
@@ -29,12 +13,12 @@ function create() {
 	declare -A drivecap
 	ii=0
 
-	for entry in `/bin/df -h | grep media/$user`; do
-		if [[ $entry == *"media"* ]]; then
-			drivenames[$ii]=`basename $entry`
+	for entry in $(/bin/df -h | grep media/"${USER}"); do
+		if [[ ${entry} == *"media"* ]]; then
+			drivenames[${ii}]=$(basename "${entry}")
 			ii=$((ii + 1))
-		elif [[ $entry == *"dev"* ]]; then
-			drivecodes[$ii]=`basename $entry`
+		elif [[ ${entry} == *"dev"* ]]; then
+			drivecodes[${ii}]=$(basename "${entry}")
 		fi
 	done
 
@@ -47,21 +31,19 @@ function create() {
 	printf "Enter drive: "
 	read drive
 
-	seek_confirmation "Drive '$entry' is going to be formatted. Proceed?"
+	seek_confirmation "Drive '${entry}' is going to be formatted. Proceed?"
 
 	if is_confirmed; then
-		log_info "Writing '$1' to '$entry'..."
+		log_info "Writing '$1' to '${entry}'..."
 		sudo dd if=$1 of="/dev/${drivecodes[$((drive-1))]//[[:digit:]]/}"
 	else
 		log_info "Abort!"
  	fi
 }
 
-#
-# Main
-#
 if [ -z "$1" ]; then
-	usage
+	figlet "USB create"
+	echo "Usage: $(basename $0) <path-to-iso>"
 	exit 0
 else
 	create $1

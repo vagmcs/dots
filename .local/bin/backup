@@ -3,12 +3,7 @@
 # A simple backup script
 #
 
-# SECTION:  Configuration
-
-#
-# Take the timestamp where the backup is started
-#
-DATE_TIME=`date +%Y%m%d-%H_%M_%S`
+DATE_TIME=$(date +%Y%m%d-%H_%M_%S) # Take the timestamp where the backup is started
 
 
 # SECTION: Functions
@@ -138,5 +133,5 @@ done
 
 # By default create gzipped tarballs
 if [[ -z $TYPE ]]; then TYPE="gzip"; fi 
-
 mkBackup $TYPE $@
+
