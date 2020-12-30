@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+#
+# An extractor script
+#
+# @author: vagmcs
+# @version: 1.0
+#
+
+# Import poor mans logger
+. `dirname $0`/lib/poor.mans.logger.sh
+
+#
+# Display usage
+#
+usage() {
+
+	art "extractor"
+  printf "\n"
+                                                                             
+	echo "Usage: `basename $0` <path/target>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+}
+
+#
+# Extract function
+#
+function extract() {
+	
+	# display usage in case no arguments are given
+	if [ -z "$1" ]; then
+		usage
+	elif [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2) tar xvjf $1 ;;
+			*.tar.gz) tar xvzf $1 ;;
+			*.tar.xz) tar xvJf $1 ;;
+			*.lzma) unlzma $1 ;;
+			*.bz2) bunzip2 $1 ;;
+			*.rar) unrar x -ad $1 ;;
+			*.gz) gunzip $1 ;;
+			*.tar) tar xvf $1 ;;
+			*.tbz2) tar xvjf $1 ;;
+			*.tgz) tar xvzf $1 ;;
+			*.zip) unzip $1 ;;
+			*.Z) uncompress $1 ;;
+			*.7z) 7z x $1 ;;
+			*.xz) unxz $1 ;;
+			*.exe) cabextract $1 ;;
+			*) log_error "extract: '$1' - unknown archive type." ;;
+			esac
+	else
+		log_error "'$1' is not a valid file."
+	fi
+}
+
+#
+# SECTION: Main
+#
+extract $1
+

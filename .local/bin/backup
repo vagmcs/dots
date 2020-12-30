@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+#
+# A simple backup script
+#
+
+# SECTION:  Configuration
+
+#
+# Take the timestamp where the backup is started
+#
+DATE_TIME=`date +%Y%m%d-%H_%M_%S`
+
+
+# SECTION: Functions
+
+#
+# Display usage
+#
+usage(){
+	echo "usage: `basename $0` [-htz] <dir> or `basename $0` [-ht,z] <dir> <target path>"
+	echo "  -h : display this help."
+	echo "  -t : create tarball archive."
+	echo "  -z : create gzip compressed tarball archive (default)."
+	echo "  -j : create bzip2 compressed tarbal archive."
+}
+
+#
+# The backup function
+#
+# param $1: the archive type (gzip, tar).
+# param $2: the directory to archive.
+# param $3: (optionaly) the target path to store the archive file,
+#	          otherwise the current path will be used.
+#
+mkBackup(){
+
+base=
+tar_params=
+if [ "$1" = "gzip" ]; then
+	base=`basename "$2"`-"$DATE_TIME".tar.gz
+	echo -n "Creating compressed tarball archive '$base', using "
+	cprog=`which pigz`
+	if [ "$cprog" != "" ]; then
+	    echo "parallel gzip compression (pigz)."
+	else
+	    echo "single-threaded gzip compression."
+	fi
+	tar_params="--use-compress-prog="${cprog:-gzip}
+elif [ "$1" = "bzip2" ]; then
+	base=`basename "$2"`-"$DATE_TIME".tar.bz2
+	echo -n "Creating compressed tarball archive '$base', using "
+	cprog=`which pbzip2`
+	if [ "$cprog" != "" ]; then
+	    echo "parallel bzip2 compression (pbzip2)."
+	else
+	    echo "single-threaded bzip2 compression."
+	fi
+	tar_params="--use-compress-prog="${cprog:-bzip2}
+elif [ "$1" = "tar" ]; then
+	base=`basename "$2"`-"$DATE_TIME".tar
+	tar_params=""
+else
+	echo "Internal error: wrong archive type"
+	exit 10;
+fi
+
+unhidden=`echo "$base" | sed 's/^[.]\(.*\)/\1/'`
+
+if [ "$#" -eq 2 ]; then
+	if [ -d "$2" ]; then
+		tar "$tar_params" -cf "$unhidden" "$2" &&
+		md5sum "$unhidden" > "$unhidden".md5
+		exit 0
+	else
+		usage
+		exit 1
+	fi
+elif [ "$#" -eq 3 ]; then
+	if [ -d "$2" -a -d "$3" ]; then
+		tmpfile="`basename "$3"`/$unhidden"
+		tar "$tar_params" -cf `dirname "$3"`/"$tmpfile" "$2" && 
+		cd `dirname "$3"`/`basename "$3"`
+		pwd
+		md5sum `basename "$tmpfile"` > `basename "$tmpfile"`.md5 
+		cd -
+		exit 0
+	fi
+else
+	usage
+	exit 1
+fi
+}
+
+#
+# SECTION: Program
+#
+ARGS=`getopt -o htzj -n 'backup' --  "$@"`
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+#echo "ARGS: $ARGS"
+
+# Note the quotes around `$ARGS': they are essential!
+eval set -- "$ARGS"
+
+TYPE=
+for i in $ARGS 
+do
+#echo "processing: $i"
+case "$i" in
+	-h) 
+	  usage
+	  exit 0
+	;;
+	-t) 
+	  if [[ -n $TYPE ]]; then usage; fi
+	  TYPE="tar"
+	  shift
+	;;
+	-z) 
+	  if [[ -n $TYPE ]]; then usage; fi
+	  TYPE="gzip" 
+	  shift
+	;;
+	-j) 
+	  if [[ -n $TYPE ]]; then usage; fi
+	  TYPE="bzip2" 
+	  shift
+	;;
+	--) 
+	   shift
+	   break 
+	;;
+	*) 
+	  echo "Internal error!" 
+          exit 1 
+	;;
+esac
+done
+
+# By default create gzipped tarballs
+if [[ -z $TYPE ]]; then TYPE="gzip"; fi 
+
+mkBackup $TYPE $@

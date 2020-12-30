@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+IN_FILE=$1
+OUT_FILE=$2
+COLUMN=$3
+DELIM=,
+
+awk -F"${DELIM}" '{print $COLUMN}' $IN_FILE
