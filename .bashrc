@@ -78,7 +78,7 @@ alias config="git --git-dir=${HOME}/dotfiles --work-tree=${HOME}"
 
 # Pacman
 alias pacman='sudo pacman'
-alias cleanup="sudo pacman -Rns $(pacman -Qtdq)" # remove orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
 
 # Change user shell
 alias chbash="sudo chsh ${USER} -s /bin/bash"
