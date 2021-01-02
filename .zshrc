@@ -1,9 +1,10 @@
-#  ____            _
-# | __ )  __ _ ___| |__
-# |  _ \ / _` / __| '_ \
-# | |_) | (_| \__ \ | | |
-# |____/ \__,_|___/_| |_|
+#  _________  _   _
+# |__  / ___|| | | |
+#   / /\___ \| |_| |
+#  / /_ ___) |  _  |
+# /____|____/|_| |_|
 #
+
 
 #
 # EXPORT
@@ -12,41 +13,75 @@ export TERM="xterm-256color"
 export EDITOR=nvim
 
 
-#
-# FUNCTIONS 
-#
-parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 
 #
+# PLUGINS
+#
+source ~/.zplug/init.zsh
+
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh
+zplug "b4b4r07/enhancd", from:github
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+# Install plugins if plugins exist that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Source plugins and add commands to PATH
+zplug load
+
+
+#
 # HISTORY
 #
+HISTFILE=~/.zsh_history
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
+SAVEHIST=1000
 
 
 #
 # SHELL CONFIG
 #
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}"'
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD/#$HOME/~}"'
+precmd() { eval "${PROMPT_COMMAND}" }
 
-PS1="\[\033[01;32m\]\u@\h[\W]\[\033[33m\]\$(parse_git_branch)\[\033[01;32m\]>\[$(tput sgr0)\] "
+setopt autocd 				# change to given directory
+setopt append_history # do not overwrite history
 
-shopt -s autocd 				# change to given directory
-shopt -s cdspell				# autocorrect cd misspellings
-shopt -s cmdhist 				# save multi-line commands in history as a single line
-shopt -s histappend 		# do not overwrite history
-shopt -s checkwinsize		# check the window size after each external command
+# Use emacs-like keybindings
+bindkey -e
 
-# Search the repos, when entering an unrecognized command 
-source /usr/share/doc/pkgfile/command-not-found.bash
+# Basic auto/tab completion
+autoload -Uz compinit & compinit -u
+_comp_options+=(globdots)
+zstyle ':completion:*' menu select
+zstyle :compinstall filename '/home/vagmcs/.zshrc'
+
+# Enable stash display on pure theme
+zstyle :prompt:pure:git:stash show yes
+
+# Configure prompt on pure theme
+autoload -U colors && colors
+PURE_PROMPT_SYMBOL="[v@m] ❯"
+zstyle ':prompt:pure:prompt:success' color cyan
+
+# Select man pages color
+less_termcap[md]="${fg_bold[blue]}"
+
+# Enable zsh syntax highlighting and autosuggestions
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 (cat ~/.cache/wal/sequences &) # load colorscheme
 
@@ -75,6 +110,10 @@ alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
 alias ping='prettyping --nolegend'
+
+# History search
+alias h='history'
+alias hs='history | grep'
 
 # Bare repo
 alias config="git --git-dir=${HOME}/dotfiles --work-tree=${HOME}"
