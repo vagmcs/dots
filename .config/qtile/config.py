@@ -35,6 +35,9 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+# Load PyWal colors
+import pywal_colors
+WAL_COLORS = pywal_colors.colors
 
 #
 # GLOBAL VARIABLES
@@ -44,7 +47,8 @@ ALT = "mod1"                    # Set application mod key to ALT
 HOME = os.environ.get("HOME")   # HOME path
 terminal = guess_terminal()     # Guess terminal application
 FONT = "Hack Nerd Font"
-COLORS = [
+
+CUSTOM_COLORS = [
     # POLAR NIGHT [0 to 3]
     "#2e3440",
     "#3b4252",
@@ -129,10 +133,10 @@ keys = [
     Key([MOD], "Return", lazy.spawn(terminal),
         desc="Launch terminal application"),
 
-    Key([MOD, "shift"], "Return", lazy.spawn("rofi -show run"),
+    Key([MOD, "shift"], "Return", lazy.spawn("rofi -show drun"),
         desc="Launch rofi launcher"),
 
-    Key([MOD], "w", lazy.window.kill(),
+    Key([MOD, "shift"], "c", lazy.window.kill(),
         desc="Kill focused window"),
 
     Key([MOD, "control"], "r", lazy.restart(),
@@ -187,8 +191,8 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 layout_config = {
     "margin": 8,
     "border_width": 4,
-    "border_focus": COLORS[13],
-    "border_normal": COLORS[4]
+    "border_focus": WAL_COLORS[6], #CUSTOM_COLORS[13],
+    "border_normal": WAL_COLORS[8] #CUSTOM_COLORS[4]
 }
 
 layouts = [
@@ -197,7 +201,7 @@ layouts = [
     layout.Matrix(**layout_config),
     layout.MonadTall(**layout_config),
     layout.MonadWide(**layout_config),
-    layout.Floating(**layout_config)
+    layout.Floating(border_width=4, border_focus=WAL_COLORS[6], border_normal=WAL_COLORS[8])
 ]
 
 
@@ -208,8 +212,8 @@ widget_defaults = dict(
     font = FONT,
     fontsize = 15,
     padding = 3,
-    background = COLORS[0],
-    foreground = COLORS[5]
+    background = WAL_COLORS[0], #CUSTOM_COLORS[0],
+    foreground = WAL_COLORS[7] #CUSTOM_COLORS[5]
 )
 extension_defaults = widget_defaults.copy()
 
@@ -220,41 +224,41 @@ widget_list = [
         #padding_x = 2,
         padding_y = 6,
         #borderwidth = 3,
-        active = COLORS[12],
-        inactive = COLORS[5],
-        block_highlight_text_color = COLORS[5],
-        this_current_screen_border = COLORS[11],
-        this_screen_border = COLORS[11],
-        highlight_method = "block",
+        active = WAL_COLORS[3], #CUSTOM_COLORS[12],
+        inactive = WAL_COLORS[7], #CUSTOM_COLORS[5],
+        block_highlight_text_color = WAL_COLORS[15], #CUSTOM_COLORS[5],
+        this_current_screen_border = WAL_COLORS[1], #CUSTOM_COLORS[11],
+        this_screen_border = WAL_COLORS[1], #CUSTOM_COLORS[11],
+        highlight_method = "block"
     ),
     widget.Spacer(length=bar.STRETCH),
     widget.CPU(
         format = " {load_percent}%",
-        background = COLORS[11]
+        background = WAL_COLORS[1] #CUSTOM_COLORS[11]
     ),
-    widget.ThermalSensor(
-        fmt = " {}",
-        background = COLORS[11]
-    ),
+    #widget.ThermalSensor(
+    #    fmt = " {}",
+    #    background = CUSTOM_COLORS[11]
+    #),
     widget.Memory(
         format = " {MemUsed}MB",
-        background = COLORS[11]
+        background = WAL_COLORS[11] #CUSTOM_COLORS[11]
     ),
     widget.TextBox(
         text = "Layout:",
-        background = COLORS[8]
+        background = WAL_COLORS[4] #CUSTOM_COLORS[8]
     ),
     widget.CurrentLayoutIcon(
         scale = 0.7,
-        background = COLORS[8]
+        background = WAL_COLORS[4] #CUSTOM_COLORS[8]
     ),
     widget.Volume(
         fmt = " {}",
-        background = COLORS[9]
+        background = WAL_COLORS[6] #CUSTOM_COLORS[9]
     ),
     widget.Clock(
         format = " %a %d %b  %H:%M",
-        background = COLORS[3]
+        background = WAL_COLORS[8] #CUSTOM_COLORS[3]
     ),
     widget.KeyboardLayout(
         configured_keyboards=["us", "gr"]
@@ -267,13 +271,13 @@ widget_list = [
 #
 screens = [Screen(
     top=bar.Bar(widgets = widget_list, margin = [4, 6, 1, 6], opacity = 0.85, size = 28),
-    bottom=bar.Bar(background=COLORS[0], widgets=[
+    bottom=bar.Bar(background=WAL_COLORS[0], widgets=[
         widget.WindowName(
-            foreground = COLORS[14],
+            foreground = WAL_COLORS[5], #CUSTOM_COLORS[14],
             font = FONT + " Bold"
         ),
         widget.CheckUpdates(
-            background=COLORS[0],
+            background= WAL_COLORS[0], #CUSTOM_COLORS[0],
             display_format=" : {updates}",
             fontsize = 15,
             mouse_callbacks = {"Button1": lambda qtile: qtile.cmd_spawn("pamac-manager")}
