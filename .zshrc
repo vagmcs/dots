@@ -116,7 +116,7 @@ alias h='history'
 alias hs='history | grep'
 
 # Bare repo
-alias config="git --git-dir=${HOME}/dotfiles --work-tree=${HOME}"
+alias config="git --git-dir=${HOME}/Usr/dev/dotfiles --work-tree=${HOME}"
 
 # Pacman
 alias pacman='sudo pacman'
