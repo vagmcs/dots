@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Called by sxiv whenever an image gets loaded. The first
+# argument refers to the name of the image file. The output
+# is displayed in sxiv status bar.
+
+sep=" | " # field separator
+
+filename=$(basename "$1")
+filesize=$(du -Hh "$1" | cut -f 1)
+
+# [0] stands for the first frame of a multi-frame file, e.g., GIF.
+geometry=$(identify -format '%wx%h' "$1[0]")
+
+echo "${filesize}${sep}${geometry}${sep}${filename}"
+
