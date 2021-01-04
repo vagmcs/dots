@@ -75,6 +75,8 @@ alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
 alias ping='prettyping --nolegend'
+alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
+alias diff="diff --color=auto"
 
 # Bare repo
 alias config="git --git-dir=${HOME}/Usr/dev/dotfiles --work-tree=${HOME}"

@@ -11,6 +11,10 @@
 #
 export TERM="xterm-256color"
 export EDITOR=nvim
+export ZPLUG_HOME="${XDG_DATA_HOME}/.zplug"
+export ZPLUG_BIN="${ZPLUG_HOME}/bin"
+export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
+export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
 
 
 # If not running interactively, don't do anything
@@ -20,7 +24,7 @@ export EDITOR=nvim
 #
 # PLUGINS
 #
-source ~/.zplug/init.zsh
+source "${ZPLUG_HOME}"/init.zsh
 
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
@@ -43,7 +47,7 @@ zplug load
 #
 # HISTORY
 #
-HISTFILE=~/.zsh_history
+#HISTFILE=~/.zsh_history
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
@@ -66,7 +70,7 @@ bindkey -e
 autoload -Uz compinit & compinit -u
 _comp_options+=(globdots)
 zstyle ':completion:*' menu select
-zstyle :compinstall filename '/home/vagmcs/.zshrc'
+zstyle :compinstall filename '${HOME}/.zshrc'
 
 # Enable stash display on pure theme
 zstyle :prompt:pure:git:stash show yes
@@ -110,6 +114,8 @@ alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
 alias ping='prettyping --nolegend'
+alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
+alias diff='diff --color=auto'
 
 # History search
 alias h='history'
