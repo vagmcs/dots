@@ -16,6 +16,16 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	Plug 'tpope/vim-fugitive'
 	" Status line
 	Plug 'itchyny/lightline.vim'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 	" Colorizer
 	Plug 'norcalli/nvim-colorizer.lua'
+	" PyWal colorscheme
+	Plug 'dylanaraps/wal.vim'
+	" OneDark colorscheme
+	Plug 'joshdick/onedark.vim'
+	" Vimtex for LaTeX
+	Plug 'lervag/vimtex'
+	" A Vim Plugin for Lively Previewing LaTeX PDF Output
+	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 call plug#end()
