@@ -12,6 +12,9 @@ export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
 export XCOMPOSEFILE="${XDG_CONFIG_HOME}/X11/xcompose"
 export XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose"
 
+# KDE
+export KDEHOME="${XDG_CONFIG_HOME}/kde"
+
 # Java
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"
 export ANDROID_PREFS_ROOT="${XDG_CONFIG_HOME}/android"
@@ -27,6 +30,18 @@ export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME}/jupyter"
 export WORKON_HOME="${XDG_DATA_HOME}/virtualenvs"
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
+export PYTHON_EGG_CACHE="${XDG_CACHE_HOME}/python-eggs"
+export CONDARC="${XDG_CONFIG_HOME}/conda/condarc"
+
+# Go
+export GOPATH="${XDG_DATA_HOME}/go"
+
+# Docker
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
+
+# Vagrant
+export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
+export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
 
 # TeX
 export TEXMFHOME="${XDG_DATA_HOME}/texmf"
