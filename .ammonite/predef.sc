@@ -17,9 +17,8 @@ import $ivy.{
 	`org.scalanlp::breeze:1.1`,
 	`org.scalanlp::breeze-natives:1.1`,
 	`com.github.haifengl::smile-scala:2.6.0`,
-	`com.github.haifengl:smile-netlib:2.6.0`,
 	`tech.tablesaw:tablesaw-core:0.38.1`,
-	`com.spotify::featran-core:0.3.0`
+	`com.spotify::featran-core:0.7.0`
 }
 
 // Files and Visuals
