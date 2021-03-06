@@ -14,6 +14,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	" Git
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
+	" Vim Wiki
+	Plug 'vimwiki/vimwiki'
 	" Status line
 	Plug 'itchyny/lightline.vim'
 	Plug 'vim-airline/vim-airline'
@@ -28,4 +30,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	Plug 'lervag/vimtex'
 	" A Vim Plugin for Lively Previewing LaTeX PDF Output
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+	" Snippets
+	Plug 'sirver/ultisnips'
 call plug#end()
