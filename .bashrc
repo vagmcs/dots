@@ -79,7 +79,7 @@ alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 alias diff="diff --color=auto"
 
 # Bare repo
-alias config="git --git-dir=${HOME}/Usr/dev/dotfiles --work-tree=${HOME}"
+alias config="git --git-dir=${HOME}/Work/dev/dotfiles --work-tree=${HOME}"
 
 # Pacman
 alias pacman='sudo pacman'
@@ -93,39 +93,35 @@ alias chzsh="sudo chsh ${USER} -s /bin/zsh"
 #
 # PATH
 #
-USR_HOME="${HOME}/Usr"
-USR_OPT="${USR_HOME}/opt"
+LOCAL_HOME="${HOME}/.local"
+LOCAL_OPT="${LOCAL_HOME}/opt"
 
 # Add user executables to PATH
-if [ -d "${USR_HOME}/bin" ]; then
-  PATH="${USR_HOME}/bin:$PATH"
-fi
-
-if [ -d "${HOME}/.local/bin" ]; then
-	PATH="${HOME}/.local/bin:${PATH}"
+if [ -d "${LOCAL_HOME}/bin" ]; then
+  PATH="${LOCAL_HOME}/bin:$PATH"
 fi
 
 # Java
-JAVA_HOME="${USR_OPT}/java"
+JAVA_HOME="${LOCAL_OPT}/java"
 PATH="${JAVA_HOME}/bin:${PATH}"
 
 # Maven
-PATH="${USR_OPT}/maven/bin:${PATH}"
+PATH="${LOCAL_OPT}/maven/bin:${PATH}"
 
 # Scala
-PATH="${USR_OPT}/scala/bin:${PATH}"
+PATH="${LOCAL_OPT}/scala/bin:${PATH}"
 
 # SBT
-PATH="${USR_OPT}/sbt/bin:${PATH}"
+PATH="${LOCAL_OPT}/sbt/bin:${PATH}"
 
 # ScalaTIKZ
-PATH="${USR_OPT}/scalatikz/bin:${PATH}"
+PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
 
 # Clingo
-PATH="${USR_OPT}/clingo/build/release:${PATH}"
+PATH="${LOCAL_OPT}/clingo/build/release:${PATH}"
 
 # LpSolve
-LD_LIBRARY_PATH="${USR_OPT}/lpsolve:${LD_LIBRARY_PATH}"
+LD_LIBRARY_PATH="${LOCAL_OPT}/lpsolve:${LD_LIBRARY_PATH}"
 
 
 export PATH LD_LIBRARY_PATH JAVA_HOME
