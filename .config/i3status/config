@@ -1,0 +1,37 @@
+general {
+	colors = true
+	interval = 5
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+order += "volume master"
+order += "tztime local"
+
+cpu_usage {
+	format = " %usage"
+}
+
+memory {
+	format = " %used"
+  threshold_degraded = "10%"
+  format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+	format = " %avail/%total"
+}
+
+volume master {
+	format = "♪: %volume"
+  format_muted = "♪: muted (%volume)"
+  device = "default"
+	mixer = "Master"
+  mixer_idx = 0
+}
+
+tztime local {
+	format = "%a, %b %d %Y [%H:%M]"
+}
+
