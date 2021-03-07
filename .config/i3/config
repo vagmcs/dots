@@ -4,7 +4,7 @@
 # | |___) |
 # |_|____/
 #
-
+# A customized config for i3-gaps window manager (http://www.i3wm.org)
 
 #
 # General
@@ -25,13 +25,10 @@ gaps outer 5
 # Autostart
 #
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i /tmp/screen.png
+# Start i3lock in case of user inactivity
+exec --no-startup-id xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete"
 
-bindsym $mod+Shift+x exec $HOME/.local/bin/lock
-
-# start np-applet system tray for network manager
+# Start np-applet system tray for network manager
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
@@ -46,22 +43,25 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Keybindings
 #
 
+# Lock screen
+bindsym $mod+Shift+x exec i3lock-fancy -f Hack-Regular-Nerd-Font-Complete
+
 # Use mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# start a terminal
+# Open a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
-# kill focused window
+# Kill focused window
 bindsym $mod+Shift+q kill
 
-# run dmenu
+# Run dmenu
 bindsym $mod+d exec --no-startup-id dmenu_run
 
-# run rofi
+# Run rofi
 bindsym $mod+Shift+Return exec "rofi -show drun"
 
-# change focus
+# Change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -73,7 +73,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# Move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -85,30 +85,30 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+z split h
+# Split in horizontal orientation
+bindsym $mod+z split h; exec notify-send 'Horizontal mode enabled'
 
-# split in vertical orientation
-bindsym $mod+v split v
+# Split in vertical orientation
+bindsym $mod+v split v; exec notify-send 'Vertical mode enabled'
 
-# enter fullscreen mode for the focused container
+# Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
+# Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# Toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+# Change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
+# Focus the parent container
 bindsym $mod+a focus parent
 
-# names for default workspaces.
+# Names for default workspaces
 set $ws1 "1  "
 set $ws2 "2  " 
 set $ws3 "3  " 
@@ -119,7 +119,7 @@ set $ws7 "7  "
 set $ws8 "8  "
 set $ws9 "9  " 
 
-# change workspaces
+# Change workspaces
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -130,7 +130,7 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -142,16 +142,19 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# reload configuration
+# Reload configuration
 bindsym $mod+Shift+c reload
 
-# restart i3 inplace
+# Restart i3 inplace
 bindsym $mod+Shift+r restart
 
-# exit i3 (log out of the X session)
+# Exit i3 (log out of the X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -B 'Yes' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
+# Resize window (you can also use the mouse for that)
+
+bindsym $mod+r mode "resize"
+
 mode "resize" {
         
         bindsym h resize shrink width 10 px or 10 ppt
@@ -170,8 +173,6 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
-bindsym $mod+r mode "resize"
 
 
 #
