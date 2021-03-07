@@ -18,7 +18,21 @@ font xft:Hack Nerd Font 12
 
 # Set inner/outer gaps
 gaps inner 5
-gaps outer 5
+gaps outer 0
+
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+new_window pixel 3
+
+# Color theme
+#
+# class                 border  backgr. text    indicator child_border
+client.focused          #81a1c1 #5e81ac #eceff4 #61AFEF   #5e81ac
+client.focused_inactive #333333 #abb2bf #eceff4 #484e50   #abb2bf
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #bf616a #eceff4 #bf616a   #bf616a
+client.placeholder      #2e3440 #0c0c0c #eceff4 #2e3440   #0c0c0c
+
+client.background       #eceff4
 
 
 #
