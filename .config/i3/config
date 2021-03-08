@@ -39,11 +39,17 @@ client.background       #eceff4
 # Autostart
 #
 
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 # Start i3lock in case of user inactivity
 exec --no-startup-id xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete"
 
 # Start np-applet system tray for network manager
 exec --no-startup-id nm-applet
+
+# Start polkit agent
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -192,25 +198,25 @@ mode "resize" {
 #
 # i3bar displays the workspace bar
 # 
-bar {
-        output primary
-        position top
-        status_command i3status
-        workspace_buttons yes
-        workspace_min_width 50
-        strip_workspace_numbers no
-        strip_workspace_name no
-        tray_output primary
-        separator_symbol ":::"
-
-        font xft:Hack Nerd Font 12
-
-        colors {
-                background #2e3440
-                statusline #eceff4
-                separator #bf616a
-
-                focused_workspace  #ebcb8b #3b4252 #eceff4
-                active_workspace   #333333 #3b4252 #eceff4
-        }
-}
+#bar {
+#        output primary
+#        position top
+#        status_command i3status
+#        workspace_buttons yes
+#        workspace_min_width 50
+#        strip_workspace_numbers no
+#        strip_workspace_name no
+#        tray_output primary
+#        separator_symbol ":::"
+#
+#        font xft:Hack Nerd Font 12
+#
+#        colors {
+#                background #2e3440
+#                statusline #eceff4
+#                separator #bf616a
+#
+#                focused_workspace  #ebcb8b #3b4252 #eceff4
+#                active_workspace   #333333 #3b4252 #eceff4
+#        }
+#}
