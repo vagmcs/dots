@@ -22,6 +22,10 @@ super + shift + d
 super + shift + Return
 	rofi -show drun
 
+# configurations
+super + alt + c
+	${HOME}/.local/bin/select-config
+
 #
 # bspwm hotkeys
 #
