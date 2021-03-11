@@ -196,6 +196,60 @@ label-urgent-padding = 2
 label-separator =
 
 
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = false
+
+; Output mode flags after focused state label
+inline-mode = false
+
+format = <label-state> ::: <label-mode>
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = ${self.label-focused-padding}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index% %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; These labels indicate the layout/mode for the focused workspace
+label-monocle = [M]
+label-tiled = [T]
+;label-fullscreen = [U]
+;label-floating = [F]
+;label-pseudotiled = [D]
+;label-locked = [L]
+;label-locked-foreground = #bf616a 
+;label-sticky = [S]
+;label-sticky-foreground = #ebcb8b
+;label-private = [P]
+;label-private-foreground = #bf616a
+;label-marked = [R]
+
+; Separator in between workspaces
+label-separator =
+
+
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
