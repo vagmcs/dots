@@ -22,9 +22,13 @@ super + shift + d
 super + shift + Return
 	rofi -show drun
 
-# configurations
+# edit configurations
 super + alt + c
 	${HOME}/.local/bin/select-config
+
+# lock screen
+super + shift + l
+	i3lock-fancy -f Hack-Regular-Nerd-Font-Complete
 
 #
 # bspwm hotkeys

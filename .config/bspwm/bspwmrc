@@ -16,11 +16,14 @@ picom &
 dunst &
 unclutter &
 pamac-tray &
+nm-applet &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 jetbrains-toolbox &
 owncloud &
 insync start &
 pgrep -x sxhkd > /dev/null || sxhkd &
-${HOME}/.config/polybar/launch.sh
+${HOME}/.config/polybar/launch.sh &
+xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
 
 #
 # monitors
