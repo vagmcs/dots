@@ -33,6 +33,9 @@ export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 export PYTHON_EGG_CACHE="${XDG_CACHE_HOME}/python-eggs"
 export CONDARC="${XDG_CONFIG_HOME}/conda/condarc"
 
+# Rust
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+
 # Go
 export GOPATH="${XDG_DATA_HOME}/go"
 

@@ -363,8 +363,8 @@ menu-0-0-exec = i3lock-fancy -f Hack-Regular-Nerd-Font-Complete
 
 menu-0-1 = ﰇ
 menu-0-1-foreground = ${colors.success}
-menu-0-1-exec = sudo reboot
+menu-0-1-exec = reboot
 menu-0-2 = ⏻
 menu-0-2-foreground = ${colors.alert}
-menu-0-2-exec = sudo poweroff
+menu-0-2-exec = poweroff
 
