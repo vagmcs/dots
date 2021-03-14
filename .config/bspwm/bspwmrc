@@ -10,8 +10,8 @@
 #
 # autostart
 #
-xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources
-setbg &
+xrdb merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
+${HOME}/.local/bin/setbg &
 picom &
 dunst &
 unclutter &
