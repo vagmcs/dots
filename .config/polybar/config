@@ -46,7 +46,7 @@ success = #a3be8c
 warning = #d08770
 
 
-[bar/example]
+[bar/main]
 monitor =
 
 ; Put the bar at the top of the screen
@@ -235,16 +235,17 @@ label-urgent-padding = 2
 ; These labels indicate the layout/mode for the focused workspace
 label-monocle = [M]
 label-tiled = [T]
-;label-fullscreen = [U]
-;label-floating = [F]
-;label-pseudotiled = [D]
-;label-locked = [L]
-;label-locked-foreground = #bf616a 
-;label-sticky = [S]
-;label-sticky-foreground = #ebcb8b
-;label-private = [P]
-;label-private-foreground = #bf616a
-;label-marked = [R]
+label-fullscreen = [U]
+label-floating = [F]
+label-pseudotiled = [D]
+label-locked = []
+label-locked-foreground = #ebcb8b 
+label-sticky = [ﳤ]
+label-sticky-foreground = #a3be8c
+label-private = []
+label-private-foreground = #d08770
+label-marked = []
+label-marked-foreground = #bf616a
 
 ; Separator in between workspaces
 label-separator =

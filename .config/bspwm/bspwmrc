@@ -10,18 +10,18 @@
 #
 # autostart
 #
+pgrep -x sxhkd > /dev/null || sxhkd &
+picom &
 xrdb merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
 ${HOME}/.local/bin/setbg &
-picom &
 dunst &
 unclutter &
-pamac-tray &
-nm-applet &
+pgrep -x pamac-tray > /dev/null || pamac-tray &
+pgrep -x nm-applet > /dev/null || nm-applet &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-jetbrains-toolbox &
-owncloud &
-insync start &
-pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x jetbrains-toolb > /dev/null || jetbrains-toolbox &
+pgrep -x owncloud > /dev/null || owncloud &
+pgrep -x insync > /dev/null || insync start &
 ${HOME}/.config/polybar/launch.sh &
 xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
 

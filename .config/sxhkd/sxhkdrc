@@ -13,6 +13,10 @@
 super + Return
 	alacritty
 
+# drop terminal
+super + alt + Return
+	${HOME}/.local/bin/drop -n 1 -p 'bspc rule -a St -o state=floating' alacritty
+
 # dmenu launcher
 super + shift + d
 	dmenu_run -b -p search -fn "Fira Code:size=12" \
@@ -22,21 +26,37 @@ super + shift + d
 super + shift + Return
 	rofi -show drun
 
-# edit configurations
+# show manual
+super + slash
+	"${HOME}"/.local/bin/sxhkd-help
+
+# open dotfiles
 super + alt + c
-	${HOME}/.local/bin/select-config
+	"${HOME}"/.local/bin/select-config
 
 # lock screen
 super + shift + l
-	i3lock-fancy -f Hack-Regular-Nerd-Font-Complete
+	i3lock-fancy -pf Hack-Regular-Nerd-Font-Complete
+
+# change wallpaper
+super + alt + b
+	"${HOME}"/.local/bin/setbg "${HOME}"/Pictures/wallpapers 
+
+# generate random password
+super + r ; {g, p}
+	tr -dc "a-zA-Z0-9_#@.-" < /dev/urandom | head -c 14 | xclip -selection clipboard
+
+# access clipmenu
+alt + v
+	CM_LAUNCHER=rofi clipmenu -location 1 -no-show-icons
 
 #
 # bspwm hotkeys
 #
 
-# make sxhkd reload its configuration files:
+# reload sxhkdrc
 super + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Deploying sxhkdrc'
 
 # quit/restart bspwm
 super + shift + {q,r}
@@ -102,7 +122,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+	bspc {desktop -f,node -d} '^{1-9,10}' --follow
 
 #
 # preselect
@@ -128,6 +148,14 @@ super + ctrl + shift + space
 # move/resize
 #
 
+# move current window to a preselected space
+super + shift + m
+    bspc node -n last.!automatic
+
+# rotate tree
+super + shift + {Left,Right}
+    bspc node @/ -C {forward,backward}
+
 # contract or expand a window by moving one of the sides inward or outward
 super + alt + {h,j,k,l}
   bspc node -z { \
@@ -148,3 +176,4 @@ super + alt + {Left,Down,Up,Right}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
