@@ -125,6 +125,7 @@ alias hs='history | grep'
 alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 
 # Pacman
+alias paru='paru --skipreview'
 alias pacman='sudo pacman'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
 
