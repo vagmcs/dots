@@ -79,7 +79,7 @@ alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 alias diff="diff --color=auto"
 
 # Bare repo
-alias config="git --git-dir=${HOME}/Work/dev/dotfiles --work-tree=${HOME}"
+alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 
 # Pacman
 alias pacman='sudo pacman'
