@@ -10,33 +10,34 @@
 #
 # autostart
 #
-pgrep -x sxhkd > /dev/null || sxhkd &
 picom &
-xrdb merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
-${HOME}/.local/bin/setbg &
 dunst &
 unclutter &
+xsetroot -cursor_name left_ptr
+pgrep -x sxhkd > /dev/null || sxhkd &
+${HOME}/.config/polybar/launch.sh &
+xrdb merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
+${HOME}/.local/bin/setbg &
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
+
 pgrep -x pamac-tray > /dev/null || pamac-tray &
 pgrep -x nm-applet > /dev/null || nm-applet &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 pgrep -x jetbrains-toolb > /dev/null || jetbrains-toolbox &
 pgrep -x owncloud > /dev/null || owncloud &
 pgrep -x insync > /dev/null || insync start &
-${HOME}/.config/polybar/launch.sh &
-xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
-xsetroot -cursor_name left_ptr
 
 #
 # monitors
 #
-bspc monitor -d "1  " "2  " "3  " "4  " "5  " "6  " "7  " "8  " "9  "
-
+bspc monitor -d "1 " "2 " "3 " "4 " "5 " "6 " "7 " "8 " "9 " "0 " 
 #
 # bspwm configuration
 #
 bspc config border_radius         				8
-bspc config border_width          				4
-bspc config window_gap           					12
+bspc config border_width          				2
+bspc config window_gap           					10
 
 bspc config top_padding           				20
 bspc config bottom_padding        				0
@@ -72,7 +73,8 @@ bspc config urgent_border_color 	      	"#bf616a"
 #
 # bspwm rules
 #
-bspc rule -a firefox desktop='^3'
+bspc rule -a firefox desktop='^3' follow=on
+bspc rule -a Thunderbird desktop='^4' follow=on
 bspc rule -a mpv state=fullscreen
-bspc rule -a gnome-calculator state=floating
+bspc rule -a Gnome-calculator state=floating
 
