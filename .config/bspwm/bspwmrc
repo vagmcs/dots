@@ -24,6 +24,7 @@ pgrep -x owncloud > /dev/null || owncloud &
 pgrep -x insync > /dev/null || insync start &
 ${HOME}/.config/polybar/launch.sh &
 xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
+xsetroot -cursor_name left_ptr
 
 #
 # monitors
