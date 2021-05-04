@@ -13,24 +13,35 @@
 picom &
 dunst &
 unclutter &
-xsetroot -cursor_name left_ptr
 pgrep -x sxhkd > /dev/null || sxhkd &
 ${HOME}/.config/polybar/launch.sh &
 xrdb merge ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
+
+# restore wallpaper
 ${HOME}/.local/bin/setbg &
 
+# authentication and lock screen
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 xautolock -time 10 -locker "i3lock-fancy --nofork -f Hack-Regular-Nerd-Font-Complete" &
 
+# tray programs
 pgrep -x pamac-tray > /dev/null || pamac-tray &
 pgrep -x nm-applet > /dev/null || nm-applet &
 pgrep -x jetbrains-toolb > /dev/null || jetbrains-toolbox &
 pgrep -x owncloud > /dev/null || owncloud &
 pgrep -x insync > /dev/null || insync start &
+pgrep -x syncthing > /dev/null || syncthing &
+pgrep -x syncthing-gtk > /dev/null || syncthing-gtk &
+pgrep -x mictray > /dev/null || mictray &
+pgrep -x volctl > /dev/null || volctl &
 
+# enable JVM apps
 wmname LG3D
 
-# change keyboard layout
+# set cursor to left pointer
+xsetroot -cursor_name left_ptr
+
+# declare keyboard layout
 setxkbmap -model pc104 -layout us,gr -option grp:alt_shift_toggle
 
 #

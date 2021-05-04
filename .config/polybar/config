@@ -274,7 +274,7 @@ interval = 10
 mount-0 = /
 
 label-mounted = %{F#5e81ac} %mountpoint%%{F-} %percentage_used%%
-label-unmounted = %{F#5e81ac} %mountpoint% not mounted
+label-unmounted = %{F#5e81ac} %mountpoint%%{F-} not mounted
 label-unmounted-foreground = ${colors.alert}
 
 
