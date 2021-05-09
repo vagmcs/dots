@@ -33,7 +33,7 @@ scrolling:
 
 font:
   normal:
-    family: "Hack"
+    family: "Hack Nerd Font"
     style: Regular
   bold:
     family: "Hack"
@@ -45,7 +45,7 @@ font:
     family: "Hack"
     style: Bold Italic
 
-  size: 14.0
+  size: 12.0
   
   offset:
     x: 0
