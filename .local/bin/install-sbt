@@ -2,7 +2,7 @@
 
 MODULE_HOME=$(pwd)
 PRJ_HOME=$(dirname ${MODULE_HOME})
-INST_PARENT_DIR="${HOME}/Usr/opt"
+INST_PARENT_DIR="${HOME}/.local/opt"
 LOG="/tmp/install.sbt.log"
 
 . `dirname $0`/poor.mans.logger.sh
