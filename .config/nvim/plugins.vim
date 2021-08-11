@@ -28,8 +28,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	Plug 'joshdick/onedark.vim'
 	" Vimtex for LaTeX
 	Plug 'lervag/vimtex'
-	" A Vim Plugin for Lively Previewing LaTeX PDF Output
-	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 	" Snippets
 	Plug 'sirver/ultisnips'
 call plug#end()
