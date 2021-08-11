@@ -47,7 +47,7 @@ zplug load
 #
 # HISTORY
 #
-#HISTFILE=~/.zsh_history
+HISTFILE="${XDG_CACHE_HOME}"/.zsh_history
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
@@ -57,9 +57,6 @@ SAVEHIST=1000
 #
 # SHELL CONFIG
 #
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD/#$HOME/~}"'
-precmd() { eval "${PROMPT_COMMAND}" }
-
 setopt autocd 				# change to given directory
 setopt append_history # do not overwrite history
 
@@ -84,8 +81,8 @@ zstyle ':prompt:pure:prompt:success' color cyan
 less_termcap[md]="${fg_bold[blue]}"
 
 # Enable zsh syntax highlighting and autosuggestions
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 (cat ~/.cache/wal/sequences &) # load colorscheme
 
@@ -115,7 +112,6 @@ alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
 alias ping='prettyping --nolegend'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
-alias diff='diff --color=auto'
 
 # History search
 alias h='history'
@@ -124,14 +120,13 @@ alias hs='history | grep'
 # Bare repo
 alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 
-# Pacman
-alias paru='paru --skipreview'
-alias pacman='sudo pacman'
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
-
 # Change user shell
 alias chbash="sudo chsh ${USER} -s /bin/bash"
 alias chzsh="sudo chsh ${USER} -s /bin/zsh"
+
+# Python
+alias pip='pip3'
+alias python='python3'
 
 
 #
@@ -139,6 +134,11 @@ alias chzsh="sudo chsh ${USER} -s /bin/zsh"
 #
 LOCAL_HOME="${HOME}/.local"
 LOCAL_OPT="${LOCAL_HOME}/opt"
+
+# Add opt local binaries to PATH
+if [ -d "/opt/local/bin" ]; then
+    PATH="/opt/local/bin:$PATH"
+fi
 
 # Add user executables to PATH
 if [ -d "${LOCAL_HOME}/bin" ]; then
