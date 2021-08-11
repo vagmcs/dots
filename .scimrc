@@ -1,7 +1,0 @@
-
-color "type=HEADINGS fg=WHITE bg=DEFAULT_COLOR"
-color "type=MODE fg=GREEN bg=DEFAULT_COLOR"
-color "type=CELL_SELECTION fg=RED bg=DEFAULT_COLOR"
-
-color "type=STRG fg=GREEN bg=DEFAULT_COLOR"
-color "type=EXPRESSION fg=RED bg=DEFAULT_COLOR"
