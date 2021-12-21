@@ -1,7 +1,7 @@
 # XDG Basic
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
 
 export LESSHISTFILE=-
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
@@ -25,6 +25,7 @@ export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
 
 # Python
+export PYENV_ROOT="${HOME}/.pyenv"
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}/startup.py"
 export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME}/jupyter"
@@ -50,8 +51,3 @@ export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
 export TEXMFHOME="${XDG_DATA_HOME}/texmf"
 export TEXMFVAR="${XDG_CACHE_HOME}/texlive/texmf-var"
 export TEXMFCONFIG="${XDG_CONFIG_HOME}/texlive/texmf-config"
-
-# Wine
-[ ! command -v wine &> /dev/null ] && [ ! -d ${XDG_DATA_HOME}/wine ] && mkdir -p "${XDG_DATA_HOME}/wine"
-export WINEPREFIX="${XDG_DATA_HOME}/wine/default"
-

@@ -30,7 +30,7 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
 zplug "b4b4r07/enhancd", from:github
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "darvid/zsh-poetry", from:github
 
 # Install plugins if plugins exist that have not been installed
 if ! zplug check --verbose; then
@@ -47,7 +47,7 @@ zplug load
 #
 # HISTORY
 #
-#HISTFILE=~/.zsh_history
+HISTFILE="${XDG_CACHE_HOME}/.zsh_history"
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
@@ -57,9 +57,6 @@ SAVEHIST=1000
 #
 # SHELL CONFIG
 #
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD/#$HOME/~}"'
-precmd() { eval "${PROMPT_COMMAND}" }
-
 setopt autocd 				# change to given directory
 setopt append_history # do not overwrite history
 
@@ -72,13 +69,9 @@ _comp_options+=(globdots)
 zstyle ':completion:*' menu select
 zstyle :compinstall filename '${HOME}/.zshrc'
 
-# Enable stash display on pure theme
-zstyle :prompt:pure:git:stash show yes
-
-# Configure prompt on pure theme
+# Enable starship prompt
 autoload -U colors && colors
-PURE_PROMPT_SYMBOL="[v@m] ❯"
-zstyle ':prompt:pure:prompt:success' color cyan
+eval "$(starship init zsh)"
 
 # Select man pages color
 less_termcap[md]="${fg_bold[blue]}"
@@ -90,6 +83,10 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 (cat ~/.cache/wal/sequences &) # load colorscheme
 
 neofetch # run neofetch
+
+# start pyenv
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
 
 #
@@ -109,7 +106,7 @@ alias la='exa -la --group-directories-first --icons'
 alias lt='exa -aT --group-directories-first --icons'
 
 # Colorful commands
-alias df='pydf'
+alias df='duf'
 alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
@@ -122,17 +119,15 @@ alias h='history'
 alias hs='history | grep'
 
 # Bare repo
-alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
+alias config="git --git-dir=${HOME}/Work/dev/personal/dots.git --work-tree=${HOME}"
 
 # Pacman
-alias paru='paru --skipreview'
 alias pacman='sudo pacman'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
 
-# Change user shell
-alias chbash="sudo chsh ${USER} -s /bin/bash"
-alias chzsh="sudo chsh ${USER} -s /bin/zsh"
-
+# Python
+alias pip='pip3'
+alias python='python3'
 
 #
 # PATH
@@ -149,14 +144,8 @@ fi
 JAVA_HOME="${LOCAL_OPT}/java"
 PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Maven
-PATH="${LOCAL_OPT}/maven/bin:${PATH}"
-
 # Scala
 PATH="${LOCAL_OPT}/scala/bin:${PATH}"
-
-# SBT
-PATH="${LOCAL_OPT}/sbt/bin:${PATH}"
 
 # ScalaTIKZ
 PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
@@ -167,6 +156,16 @@ PATH="${LOCAL_OPT}/clingo/build/release:${PATH}"
 # LpSolve
 LD_LIBRARY_PATH="${LOCAL_OPT}/lpsolve:${LD_LIBRARY_PATH}"
 
+# Gurobi
+GUROBI_HOME="${LOCAL_OPT}/gurobi911/linux64"
+PATH="${GUROBI_HOME}/bin:${PATH}"
+LD_LIBRARY_PATH="${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}"
+export GRB_LICENSE_FILE="${GUROBI_HOME}/license/gurobi.lic"
+
+# Mosek
+PATH="${LOCAL_OPT}/mosek/9.2/tools/platform/linux64x86/bin:${PATH}"
+LD_LIBRARY_PATH="${LOCAL_OPT}/mosek/9.2/tools/platform/linux64x86/bin:${LD_LIBRARY_PATH}"
+export MOSEKLM_LICENSE_FILE="${LOCAL_OPT}/mosek/mosek.lic"
+
 
 export PATH LD_LIBRARY_PATH JAVA_HOME
-
