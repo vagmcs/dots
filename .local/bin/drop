@@ -1,3 +1,0 @@
-#!/bin/bash
-
-tdrop -am -w -8 -h 280 -y 35 "$@"
