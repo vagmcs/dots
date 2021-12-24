@@ -9,25 +9,25 @@
 // Scala Logging
 import $ivy.{
 	`ch.qos.logback:logback-classic:1.2.3`,
-	`com.typesafe.scala-logging::scala-logging:3.9.2`
+	`com.typesafe.scala-logging::scala-logging:3.9.4`
 }
 
 // Maths and Machine Learning
 import $ivy.{
-	`org.scalanlp::breeze:1.1`,
-	`org.scalanlp::breeze-natives:1.1`,
+	`org.scalanlp::breeze:1.2`,
+	`org.scalanlp::breeze-natives:1.2`,
 	`com.github.haifengl::smile-scala:2.6.0`,
-	`tech.tablesaw:tablesaw-core:0.38.1`,
+	`tech.tablesaw:tablesaw-core:0.42.0`,
 	`com.spotify::featran-core:0.7.0`
 }
 
 // Files and Visuals
 import $ivy.{
-	`com.lihaoyi::pprint:0.6.0`,
-	`com.lihaoyi::os-lib:0.7.1`,
+	`com.lihaoyi::pprint:0.7.1`,
+	`com.lihaoyi::os-lib:0.8.0`,
 	`com.lihaoyi::ammonite-ops:2.3.8`,
-	`tech.tablesaw:tablesaw-jsplot:0.38.1`,
-	`com.github.vagmcs::scalatikz:0.4.4`
+	`tech.tablesaw:tablesaw-jsplot:0.42.0`,
+	`com.github.vagmcs::scalatikz:0.5.0`
 }
 
 // Common Imports
