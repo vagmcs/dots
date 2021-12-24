@@ -9,6 +9,7 @@
 #
 # EXPORT
 #
+export LANG=en_US.UTF-8
 export TERM="xterm-256color"
 export EDITOR=nvim
 export ZPLUG_HOME="${XDG_DATA_HOME}/.zplug"
@@ -30,7 +31,7 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
 zplug "b4b4r07/enhancd", from:github
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "darvid/zsh-poetry", from:github
 
 # Install plugins if plugins exist that have not been installed
 if ! zplug check --verbose; then
@@ -69,24 +70,25 @@ _comp_options+=(globdots)
 zstyle ':completion:*' menu select
 zstyle :compinstall filename '${HOME}/.zshrc'
 
-# Enable stash display on pure theme
-zstyle :prompt:pure:git:stash show yes
-
-# Configure prompt on pure theme
-autoload -U colors && colors
-PURE_PROMPT_SYMBOL="[v@m] ❯"
-zstyle ':prompt:pure:prompt:success' color cyan
+# Enable starship prompt 
+eval "$(starship init zsh)"
 
 # Select man pages color
 less_termcap[md]="${fg_bold[blue]}"
 
 # Enable zsh syntax highlighting and autosuggestions
-source /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-(cat ~/.cache/wal/sequences &) # load colorscheme
+# Load colorscheme
+(cat ~/.cache/wal/sequences &) 
 
-neofetch # run neofetch
+# Load neofetch
+neofetch 
+
+# Enable pyenv
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
 
 #
@@ -106,11 +108,11 @@ alias la='exa -la --group-directories-first --icons'
 alias lt='exa -aT --group-directories-first --icons'
 
 # Colorful commands
-alias df='pydf'
+alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
 alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
-alias ping='prettyping --nolegend'
+alias pping='prettyping --nolegend'
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
 
 # History search
@@ -120,10 +122,6 @@ alias hs='history | grep'
 # Bare repo
 alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 
-# Change user shell
-alias chbash="sudo chsh ${USER} -s /bin/bash"
-alias chzsh="sudo chsh ${USER} -s /bin/zsh"
-
 # Python
 alias pip='pip3'
 alias python='python3'
@@ -132,41 +130,34 @@ alias python='python3'
 #
 # PATH
 #
+USR_LOCAL="/usr/local"
+OPT_LOCAL="/opt/local"
 LOCAL_HOME="${HOME}/.local"
 LOCAL_OPT="${LOCAL_HOME}/opt"
 
 # Add opt local binaries to PATH
-if [ -d "/opt/local/bin" ]; then
-    PATH="/opt/local/bin:$PATH"
+if [ -d "${OPT_LOCAL}/bin" ]; then
+    PATH="${OPT_LOCAL}/bin:${PATH}"
 fi
 
 # Add user executables to PATH
 if [ -d "${LOCAL_HOME}/bin" ]; then
-  PATH="${LOCAL_HOME}/bin:$PATH"
+  PATH="${LOCAL_HOME}/bin:${PATH}"
 fi
+
+# GNU coreutils
+PATH="${USR_LOCAL}/opt/coreutils/libexec/gnubin:${PATH}"
 
 # Java
 JAVA_HOME="${LOCAL_OPT}/java"
 PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Maven
-PATH="${LOCAL_OPT}/maven/bin:${PATH}"
-
 # Scala
 PATH="${LOCAL_OPT}/scala/bin:${PATH}"
-
-# SBT
-PATH="${LOCAL_OPT}/sbt/bin:${PATH}"
 
 # ScalaTIKZ
 PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
 
-# Clingo
-PATH="${LOCAL_OPT}/clingo/build/release:${PATH}"
-
-# LpSolve
-LD_LIBRARY_PATH="${LOCAL_OPT}/lpsolve:${LD_LIBRARY_PATH}"
-
-
-export PATH LD_LIBRARY_PATH JAVA_HOME
+# Export variables 
+export PATH DYLD_LIBRARY_PATH JAVA_HOME JAVA_LIBRARY_PATH
 
