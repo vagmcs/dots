@@ -33,6 +33,8 @@ export WORKON_HOME="${XDG_DATA_HOME}/virtualenvs"
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 export PYTHON_EGG_CACHE="${XDG_CACHE_HOME}/python-eggs"
 export CONDARC="${XDG_CONFIG_HOME}/conda/condarc"
+export PIPENV_IGNORE_VIRTUALENVS=1 
+export PIPENV_VENV_IN_PROJECT=1
 
 # Rust
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
