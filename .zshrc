@@ -158,6 +158,12 @@ PATH="${LOCAL_OPT}/scala/bin:${PATH}"
 # ScalaTIKZ
 PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
 
+# Add native libraries
+DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+
+# Source private work configurations
+source "${HOME}/.work"
+
 # Export variables 
 export PATH DYLD_LIBRARY_PATH JAVA_HOME JAVA_LIBRARY_PATH
 
