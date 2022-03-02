@@ -34,6 +34,7 @@ set nowritebackup           " Recommended by COC
 set formatoptions-=cro      " Stop newline continution of comments
 set updatetime=500          " Faster completion
 
+set guicursor+=i:ver25-Cursor
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Numbers, Tabs and Spaces
