@@ -65,6 +65,8 @@ setopt append_history # do not overwrite history
 bindkey -e
 
 # Basic auto/tab completion
+fpath=(/usr/local/share/zsh/completion/_docker $fpath)
+fpath=(/usr/local/share/zsh/completion/_docker-compose $fpath)
 autoload -Uz compinit & compinit -u
 _comp_options+=(globdots)
 zstyle ':completion:*' menu select
@@ -135,12 +137,17 @@ OPT_LOCAL="/opt/local"
 LOCAL_HOME="${HOME}/.local"
 LOCAL_OPT="${LOCAL_HOME}/opt"
 
+# Add usr local binaries to PATH
+if [ -d "${USR_LOCAL}/bin" ]; then
+    PATH="${USR_LOCAL}/bin:${PATH}"
+fi
+
 # Add opt local binaries to PATH
 if [ -d "${OPT_LOCAL}/bin" ]; then
     PATH="${OPT_LOCAL}/bin:${PATH}"
 fi
 
-# Add user executables to PATH
+# Add home local executables to PATH
 if [ -d "${LOCAL_HOME}/bin" ]; then
   PATH="${LOCAL_HOME}/bin:${PATH}"
 fi
@@ -148,22 +155,19 @@ fi
 # GNU coreutils
 PATH="${USR_LOCAL}/opt/coreutils/libexec/gnubin:${PATH}"
 
-# Java
-JAVA_HOME="${LOCAL_OPT}/java"
-PATH="${JAVA_HOME}/bin:${PATH}"
-
-# Scala
-PATH="${LOCAL_OPT}/scala/bin:${PATH}"
-
 # ScalaTIKZ
 PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
 
 # Add native libraries
-DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+DYLD_LIBRARY_PATH="/usr/local/lib:${DYLD_LIBRARY_PATH}"
 
 # Source private work configurations
 source "${HOME}/.work"
 
 # Export variables 
-export PATH DYLD_LIBRARY_PATH JAVA_HOME JAVA_LIBRARY_PATH
+export PATH DYLD_LIBRARY_PATH JAVA_LIBRARY_PATH
+export SDKMAN_DIR="$HOME/.sdkman"
+
+# Enable SDKMAN
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 

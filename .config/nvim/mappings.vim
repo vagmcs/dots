@@ -14,11 +14,18 @@ nnoremap <TAB> :bnext<CR>
 " SHIFT-TAB will go back
 nnoremap <S-TAB> :bprevious<CR>
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NerdTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimTeX
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 :nmap <C-b> :w<CR>:VimtexCompileSS<CR>
-:nmap <C-n> :VimtexClean<CR>
+:nmap <C-l> :VimtexClean<CR>
 :nmap <C-o> :VimtexView<CR>
 
