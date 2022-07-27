@@ -1,3 +1,5 @@
 # Timeout for commands to executed by starship (in milliseconds).
 command_timeout = 5000
 
+[gcloud]
+format = 'on [$symbol$account(@$domain)]($style) '

@@ -8,7 +8,7 @@
 
 // Scala Logging
 import $ivy.{
-	`ch.qos.logback:logback-classic:1.2.3`,
+	`ch.qos.logback:logback-classic:1.2.10`,
 	`com.typesafe.scala-logging::scala-logging:3.9.4`
 }
 
@@ -17,16 +17,20 @@ import $ivy.{
 	`org.scalanlp::breeze:1.2`,
 	`org.scalanlp::breeze-natives:1.2`,
 	`com.github.haifengl::smile-scala:2.6.0`,
-	`tech.tablesaw:tablesaw-core:0.42.0`,
-	`com.spotify::featran-core:0.7.0`
+	`tech.tablesaw:tablesaw-core:0.43.1`,
+	`com.spotify::featran-core:0.7.0`,
+	`org.typelevel::squants:1.6.0`,
+	`com.github.vagmcs::optimus:3.4.2`,
+  `com.github.vagmcs::optimus-solver-oj:3.4.2`,
+	`info.debatty:java-string-similarity:2.0.0`
 }
 
 // Files and Visuals
 import $ivy.{
-	`com.lihaoyi::pprint:0.7.1`,
+	`com.lihaoyi::pprint:0.7.3`,
 	`com.lihaoyi::os-lib:0.8.0`,
-	`com.lihaoyi::ammonite-ops:2.3.8`,
-	`tech.tablesaw:tablesaw-jsplot:0.42.0`,
+	`com.lihaoyi::ammonite-ops:2.4.1`,
+	`tech.tablesaw:tablesaw-jsplot:0.43.1`,
 	`com.github.vagmcs::scalatikz:0.5.0`
 }
 
