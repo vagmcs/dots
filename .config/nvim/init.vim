@@ -96,7 +96,7 @@ set noshowmode		" No need to see things like -- INSERT -- anymore
 set laststatus=2 	" Always display the status line
 
 let g:lightline = {
-\		'colorscheme': 'onedark',
+\		'colorscheme': 'PaperColor',
 \		'active': {
 \			'left': [	[ 'mode', 'paste' ], 
 \								[ 'gitbranch', 'readonly', 'filename', 'modified' ]	]
@@ -120,7 +120,7 @@ let g:onedark_terminal_italics = 1
 
 syntax enable								" Enables syntax highlighing
 set background=dark 				" Tell vim what the background color looks like
-colorscheme onedark 				" Use the one dark colorscheme
+colorscheme base16-onedark	" Use the one dark colorscheme
 
 set termguicolors
 

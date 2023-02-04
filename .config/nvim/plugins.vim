@@ -25,7 +25,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	" PyWal colorscheme
 	Plug 'dylanaraps/wal.vim'
 	" OneDark colorscheme
-	Plug 'joshdick/onedark.vim'
+	Plug 'RRethy/nvim-base16'
 	" Vimtex for LaTeX
 	Plug 'lervag/vimtex'
 	" Snippets

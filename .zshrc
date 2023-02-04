@@ -3,7 +3,6 @@
 #   / /\___ \| |_| |
 #  / /_ ___) |  _  |
 # /____|____/|_| |_|
-#
 
 
 #
@@ -17,6 +16,9 @@ export ZPLUG_BIN="${ZPLUG_HOME}/bin"
 export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
 export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
 
+# Add homebrew executables to PATH
+HOMEBREW_HOME="/opt/homebrew"
+export PATH="${HOMEBREW_HOME}/bin:${PATH}"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -48,12 +50,11 @@ zplug load
 #
 # HISTORY
 #
-HISTFILE="${XDG_CACHE_HOME}"/.zsh_history
+HISTFILE="${XDG_CACHE_HOME}/.zsh_history"
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
 SAVEHIST=1000
-
 
 #
 # SHELL CONFIG
@@ -79,14 +80,14 @@ eval "$(starship init zsh)"
 less_termcap[md]="${fg_bold[blue]}"
 
 # Enable zsh syntax highlighting and autosuggestions
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Load colorscheme
 (cat ~/.cache/wal/sequences &) 
 
 # Load neofetch
-neofetch 
+# neofetch 
 
 # Enable pyenv
 eval "$(pyenv init --path)"
@@ -109,6 +110,9 @@ alias ls='exa -l --group-directories-first --icons'
 alias la='exa -la --group-directories-first --icons'
 alias lt='exa -aT --group-directories-first --icons'
 
+# Searching
+alias search="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
 # Colorful commands
 alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
 alias ccat='bat'
@@ -127,7 +131,7 @@ alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 # Python
 alias pip='pip3'
 alias python='python3'
-
+alias ipy='ipython3'
 
 #
 # PATH
@@ -153,21 +157,24 @@ if [ -d "${LOCAL_HOME}/bin" ]; then
 fi
 
 # GNU coreutils
-PATH="${USR_LOCAL}/opt/coreutils/libexec/gnubin:${PATH}"
+PATH="${HOMEBREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
 
 # ScalaTIKZ
 PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
 
-# Add native libraries
-DYLD_LIBRARY_PATH="/usr/local/lib:${DYLD_LIBRARY_PATH}"
+# Rust
+PATH="${HOME}/.cargo/bin:${PATH}"
 
-# Source private work configurations
-source "${HOME}/.work"
+# Add native libraries
+DYLD_LIBRARY_PATH="${HOMEBREW_HOME}/opt/lp_solve/lib:${DYLD_LIBRARY_PATH}"
+
+# Source private configurations
+source "${HOME}/.private"
 
 # Export variables 
-export PATH DYLD_LIBRARY_PATH JAVA_LIBRARY_PATH
-export SDKMAN_DIR="$HOME/.sdkman"
+export PATH DYLD_LIBRARY_PATH
 
 # Enable SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
