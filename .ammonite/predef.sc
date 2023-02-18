@@ -8,30 +8,31 @@
 
 // Scala Logging
 import $ivy.{
-	`ch.qos.logback:logback-classic:1.2.10`,
-	`com.typesafe.scala-logging::scala-logging:3.9.4`
+  `ch.qos.logback:logback-classic:1.2.10`,
+  `com.typesafe.scala-logging::scala-logging:3.9.4`
 }
 
 // Maths and Machine Learning
 import $ivy.{
-	`org.scalanlp::breeze:1.2`,
-	`org.scalanlp::breeze-natives:1.2`,
-	`com.github.haifengl::smile-scala:2.6.0`,
-	`tech.tablesaw:tablesaw-core:0.43.1`,
-	`com.spotify::featran-core:0.7.0`,
-	`org.typelevel::squants:1.6.0`,
-	`com.github.vagmcs::optimus:3.4.2`,
-  `com.github.vagmcs::optimus-solver-oj:3.4.2`,
-	`info.debatty:java-string-similarity:2.0.0`
+  `org.scalanlp::breeze:2.1.0`,
+  `org.scalanlp::breeze-natives:2.1.0`,
+  `com.github.haifengl:smile-scala_2.13:3.0.0`,
+  `tech.tablesaw:tablesaw-core:0.43.1`,
+  `com.spotify::featran-core:0.8.0`,
+  `org.typelevel::squants:1.8.3`,
+  `com.github.vagmcs::optimus:3.4.3`,
+  `com.github.vagmcs::optimus-solver-oj:3.4.3`,
+  `info.debatty:java-string-similarity:2.0.0`
 }
 
-// Files and Visuals
+// Time, Files and Visuals
 import $ivy.{
-	`com.lihaoyi::pprint:0.7.3`,
-	`com.lihaoyi::os-lib:0.8.0`,
-	`com.lihaoyi::ammonite-ops:2.4.1`,
-	`tech.tablesaw:tablesaw-jsplot:0.43.1`,
-	`com.github.vagmcs::scalatikz:0.5.0`
+  `joda-time:joda-time:2.12.2`,
+  `com.lihaoyi::pprint:0.8.1`,
+  `com.lihaoyi::os-lib:0.9.0`,
+  `com.github.pathikrit:better-files_2.13:3.9.2`,
+  `tech.tablesaw:tablesaw-jsplot:0.43.1`,
+  `com.github.vagmcs:scalatikz_2.13:0.5.0`
 }
 
 // Common Imports
@@ -44,20 +45,6 @@ import com.typesafe.scalalogging.Logger
 import Implicits._
 
 // Functions
-
-/**
-  * Uses an object that can be closed (e.g. BufferedSource) and
-  * applies a function to get a result. Finally it closes the source.
-  *
-  * @param closeable a closable instance
-  * @param f a function
-  * @tparam C type of the closable
-  * @tparam R type of the return value
-  * @return a result from the function
-  */
-def using[R, C <: { def close(): Unit }](closeable: C)(f: C => R): R =
-  try { f(closeable) } finally { closeable.close() }
-
 
 // Implicits and objects
 
@@ -83,16 +70,16 @@ object Implicits {
 
 object Time {
 
-	val extractor = "([0-9]+)h ([0-9]+)m ([0-9]+)s ([0-9]+)ms".r
+  val extractor = "([0-9]+)h ([0-9]+)m ([0-9]+)s ([0-9]+)ms".r
 
-	/**
+  /**
     * Converts the given milliseconds to hours.
     *
     * @param milliseconds the total time in milliseconds
     * @return the total time in hours
     */
-	def msToHours(milliseconds: Long): Double = 
-		milliseconds / 3600000.0
+  def msToHours(milliseconds: Long): Double = 
+    milliseconds / 3600000.0
 
 	/**
     * Converts the given milliseconds to minutes.
@@ -100,8 +87,8 @@ object Time {
     * @param milliseconds the total time in minutes
     * @return the total time in minutes
     */
-	def msToMin(milliseconds: Long): Double = 
-		milliseconds / 60000.0
+  def msToMin(milliseconds: Long): Double = 
+    milliseconds / 60000.0
 
 	/**
     * Converts the given milliseconds to seconds.
@@ -109,8 +96,8 @@ object Time {
     * @param milliseconds the total time in seconds
     * @return the total time in seconds
     */
-	def msToSec(milliseconds: Long): Double = 
-		milliseconds / 1000.0
+  def msToSec(milliseconds: Long): Double = 
+    milliseconds / 1000.0
 
 	/**
     * Converts the given text to milliseconds.
@@ -118,10 +105,10 @@ object Time {
     * @param time a string representing the total time
     * @return the total time in milliseconds
     */
-	def msFromText(time: String): Long = {
-	  val extractor(hours, min, sec, ms) = time
-	  hours.toLong * 3600000 + min.toLong * 60000 + sec.toLong * 1000 + ms.toLong
-	}
+  def msFromText(time: String): Long = {
+    val extractor(hours, min, sec, ms) = time
+    hours.toLong * 3600000 + min.toLong * 60000 + sec.toLong * 1000 + ms.toLong
+  }
 
   /**
     * Calculates the actual time in hours, minutes, seconds and milliseconds
