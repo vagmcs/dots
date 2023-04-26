@@ -8,10 +8,6 @@ export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
 export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
 
-# X11
-export XCOMPOSEFILE="${XDG_CONFIG_HOME}/X11/xcompose"
-export XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose"
-
 # Java
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"
 export ANDROID_PREFS_ROOT="${XDG_CONFIG_HOME}/android"
