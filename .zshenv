@@ -1,16 +1,14 @@
 # XDG Basic
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_STATE_HOME="${HOME}/.local/state"
 
+# Bash
 export LESSHISTFILE=-
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
 export ENHANCD_DIR="${XDG_DATA_HOME}/enhancd"
-
-# Java
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"
-export ANDROID_PREFS_ROOT="${XDG_CONFIG_HOME}/android"
 
 # NodeJS
 export NVM_DIR="${XDG_DATA_HOME}/nvm"
@@ -31,6 +29,7 @@ export PIPENV_VENV_IN_PROJECT=1
 
 # Rust
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+source "$HOME/.cargo/env"
 
 # Go
 export GOPATH="${XDG_DATA_HOME}/go"
@@ -39,13 +38,8 @@ export GOPATH="${XDG_DATA_HOME}/go"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 export MACHINE_STORAGE_PATH="${XDG_DATA_HOME}/docker-machine"
 
-# Vagrant
-export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
-export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
-
 # TeX
 export TEXMFHOME="${XDG_DATA_HOME}/texmf"
 export TEXMFVAR="${XDG_CACHE_HOME}/texlive/texmf-var"
 export TEXMFCONFIG="${XDG_CONFIG_HOME}/texlive/texmf-config"
 
-. "$HOME/.cargo/env"

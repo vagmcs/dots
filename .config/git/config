@@ -5,6 +5,7 @@
 [core]
 	editor = nvim
 	autocrlf = input
+	pager = delta
 
 [http]
 	sslVerify = false
@@ -14,3 +15,12 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[delta]
+	true-color = always
+	line-numbers = true
+	side-by-side = true
+	hyperlinks = true
+
+[diff]
+    colorMoved = default

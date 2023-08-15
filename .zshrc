@@ -54,7 +54,7 @@ HISTFILE="${XDG_CACHE_HOME}/.zsh_history"
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
-SAVEHIST=1000
+SAVEHIST=10000
 
 #
 # SHELL CONFIG
@@ -80,8 +80,8 @@ eval "$(starship init zsh)"
 less_termcap[md]="${fg_bold[blue]}"
 
 # Enable zsh syntax highlighting and autosuggestions
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Load colorscheme
 (cat ~/.cache/wal/sequences &) 
@@ -98,7 +98,8 @@ eval "$(pyenv init -)"
 # ALIASES
 #
 alias vim='nvim'
-alias ema='emacs -nw'
+alias emacs='emacs -nw'
+alias zj='zellij'
 
 # Moving around
 alias ..='cd ..'
@@ -131,7 +132,7 @@ alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
 # Python
 alias pip='pip3'
 alias python='python3'
-alias ipy='ipython3'
+alias ipython='ipython3'
 
 #
 # PATH
@@ -177,4 +178,8 @@ export PATH DYLD_LIBRARY_PATH
 # Enable SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+# Auto-attach Zellij
+#export ZELLIJ_AUTO_ATTACH=true
+#eval "$(zellij setup --generate-auto-start zsh)"
 
