@@ -86,19 +86,24 @@ source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Load colorscheme
 (cat ~/.cache/wal/sequences &) 
 
-# Load neofetch
-# neofetch 
-
 # Enable pyenv
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
+function pyenv_setup {
+    export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
+    pyenv install $1
+    pyenv shell $1
+    pip install --upgrade pip
+    pip install pynvim poetry
+    poetry self add poetry-docker-plugin
+}
 
 #
 # ALIASES
 #
 alias vim='nvim'
-alias emacs='emacs -nw'
 alias zj='zellij'
 
 # Moving around
@@ -139,8 +144,8 @@ alias ipython='ipython3'
 #
 USR_LOCAL="/usr/local"
 OPT_LOCAL="/opt/local"
-LOCAL_HOME="${HOME}/.local"
-LOCAL_OPT="${LOCAL_HOME}/opt"
+HOME_LOCAL="${HOME}/.local"
+HOME_OPT="${HOME_LOCAL}/opt"
 
 # Add usr local binaries to PATH
 if [ -d "${USR_LOCAL}/bin" ]; then
@@ -153,15 +158,15 @@ if [ -d "${OPT_LOCAL}/bin" ]; then
 fi
 
 # Add home local executables to PATH
-if [ -d "${LOCAL_HOME}/bin" ]; then
-  PATH="${LOCAL_HOME}/bin:${PATH}"
+if [ -d "${HOME_LOCAL}/bin" ]; then
+  PATH="${HOME_LOCAL}/bin:${PATH}"
 fi
 
 # GNU coreutils
 PATH="${HOMEBREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
 
 # ScalaTIKZ
-PATH="${LOCAL_OPT}/scalatikz/bin:${PATH}"
+PATH="${HOME_OPT}/scalatikz/bin:${PATH}"
 
 # Rust
 PATH="${HOME}/.cargo/bin:${PATH}"
@@ -176,7 +181,7 @@ source "${HOME}/.private"
 export PATH DYLD_LIBRARY_PATH
 
 # Enable SDKMAN
-export SDKMAN_DIR="$HOME/.sdkman"
+export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
 # Auto-attach Zellij

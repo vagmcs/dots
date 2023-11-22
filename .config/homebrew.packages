@@ -28,6 +28,7 @@ node
 pandoc
 procs
 pyenv
+pyenv-virtualenv
 r
 ripgrep
 shellcheck
