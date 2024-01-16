@@ -132,7 +132,7 @@ alias h='history'
 alias hs='history | grep'
 
 # Bare repo
-alias config="git --git-dir=${HOME}/Work/dev/dots --work-tree=${HOME}"
+alias config="git --git-dir=${HOME}/Developer/projects/dots --work-tree=${HOME}"
 
 # Python
 alias pip='pip3'

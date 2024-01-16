@@ -4,3 +4,5 @@ command_timeout = 5000
 [gcloud]
 format = 'on [$symbol($domain)]($style) '
 
+[battery]
+disabled = true
