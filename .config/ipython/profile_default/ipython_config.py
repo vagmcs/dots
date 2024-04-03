@@ -7,7 +7,5 @@ c.InteractiveShellApp.exec_lines = [
     'import scipy',
     'import numpy as np',
     'import pandas as pd',
-    'import matplotlib.pyplot as plt',
-    'import more_itertools as it',
 ]
 
