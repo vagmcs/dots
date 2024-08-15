@@ -50,7 +50,7 @@ zplug load
 #
 # HISTORY
 #
-HISTFILE="${XDG_CACHE_HOME}/.zsh_history"
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
@@ -59,7 +59,7 @@ SAVEHIST=10000
 #
 # SHELL CONFIG
 #
-setopt autocd 				# change to given directory
+setopt autocd         # change to given directory
 setopt append_history # do not overwrite history
 
 # Use emacs-like keybindings
@@ -82,9 +82,6 @@ less_termcap[md]="${fg_bold[blue]}"
 # Enable zsh syntax highlighting and autosuggestions
 source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Load colorscheme
-(cat ~/.cache/wal/sequences &) 
 
 # Enable pyenv
 eval "$(pyenv init --path)"
@@ -112,20 +109,19 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
-alias ls='exa -l --group-directories-first --icons'
-alias la='exa -la --group-directories-first --icons'
-alias lt='exa -aT --group-directories-first --icons'
+alias ls='eza -l --group-directories-first --icons'
+alias la='eza -la --group-directories-first --icons'
+alias lt='eza -aT --group-directories-first --icons'
 
 # Searching
 alias search="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
 # Colorful commands
-alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
+alias df='duf -hide special,l -output mountpoint,size,used,avail,usage,type'
 alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
-alias pping='prettyping --nolegend'
-alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget-hsts"
+alias wget="wget --no-hsts"
 
 # History search
 alias h='history'
@@ -133,11 +129,6 @@ alias hs='history | grep'
 
 # Bare repo
 alias config="git --git-dir=${HOME}/Developer/projects/dots --work-tree=${HOME}"
-
-# Python
-alias pip='pip3'
-alias python='python3'
-alias ipython='ipython3'
 
 #
 # PATH
@@ -176,6 +167,9 @@ DYLD_LIBRARY_PATH="${HOMEBREW_HOME}/opt/lp_solve/lib:${DYLD_LIBRARY_PATH}"
 
 # Source private configurations
 source "${HOME}/.private"
+
+# Enable Cargo environment
+source "${HOME}/.cargo/env"
 
 # Export variables 
 export PATH DYLD_LIBRARY_PATH
