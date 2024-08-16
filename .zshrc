@@ -11,7 +11,7 @@
 export LANG=en_US.UTF-8
 export TERM="xterm-256color"
 export EDITOR=nvim
-export ZPLUG_HOME="${XDG_DATA_HOME}/.zplug"
+export ZPLUG_HOME="${DATA_HOME}/.zplug"
 export ZPLUG_BIN="${ZPLUG_HOME}/bin"
 export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
 export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
@@ -50,7 +50,7 @@ zplug load
 #
 # HISTORY
 #
-HISTFILE="${XDG_STATE_HOME}/zsh/history"
+HISTFILE="${CACHE_HOME}/.zsh_history" # path should exist
 HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
 HISTFILESIZE=5000
@@ -82,6 +82,7 @@ less_termcap[md]="${fg_bold[blue]}"
 # Enable zsh syntax highlighting and autosuggestions
 source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Enable pyenv
 eval "$(pyenv init --path)"
@@ -102,6 +103,7 @@ function pyenv_setup {
 #
 alias vim='nvim'
 alias zj='zellij'
+alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.12'
 
 # Moving around
 alias ..='cd ..'
@@ -124,8 +126,7 @@ alias grep='grep --color=auto'
 alias wget="wget --no-hsts"
 
 # History search
-alias h='history'
-alias hs='history | grep'
+alias hs='cat ${HISTFILE} | grep'
 
 # Bare repo
 alias config="git --git-dir=${HOME}/Developer/projects/dots --work-tree=${HOME}"
