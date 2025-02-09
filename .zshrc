@@ -91,11 +91,21 @@ eval "$(pyenv virtualenv-init -)"
 
 function pyenv_setup {
     export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
+    export PYTHON_CONFIGURE_OPTS="--enable-framework"
     pyenv install $1
     pyenv shell $1
     pip install --upgrade pip
-    pip install pynvim poetry
+    pip install poetry ipython numpy pandas
     poetry self add poetry-docker-plugin
+}
+
+# Luminance
+function lum() {
+  if [ -z "$1" ] || [ "$1" = "--help" ]; then
+    printf "%s\n" "Usage: lum integer"
+    return 0
+  fi
+  m1ddc set luminance $1 > /dev/null
 }
 
 #
@@ -119,7 +129,7 @@ alias lt='eza -aT --group-directories-first --icons'
 alias search="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
 # Colorful commands
-alias df='duf -hide special,l -output mountpoint,size,used,avail,usage,type'
+alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
 alias ccat='bat'
 alias du='ncdu -rx --exclude .git'
 alias grep='grep --color=auto'
@@ -164,7 +174,10 @@ PATH="${HOME_OPT}/scalatikz/bin:${PATH}"
 PATH="${HOME}/.cargo/bin:${PATH}"
 
 # Add native libraries
-DYLD_LIBRARY_PATH="${HOMEBREW_HOME}/opt/lp_solve/lib:${DYLD_LIBRARY_PATH}"
+PATH="/Library/gurobi_server1200/macos_universal2/bin:${PATH}"
+DYLD_LIBRARY_PATH="${HOMEBREW_HOME}/Cellar/lp_solve/5.5.2.11/lib:${DYLD_LIBRARY_PATH}"
+LD_LIBRARY_PATH="${HOMEBREW_HOME}/Cellar/lp_solve/5.5.2.11/lib:${LD_LIBRARY_PATH}"
+DYLD_FALLBACK_FRAMEWORK_PATH="${HOMEBREW_HOME}/Cellar/lp_solve/5.5.2.11/lib:${DYLD_FALLBACK_FRAMEWORK_PATH}"
 
 # Source private configurations
 source "${HOME}/.private"
@@ -173,7 +186,7 @@ source "${HOME}/.private"
 source "${HOME}/.cargo/env"
 
 # Export variables 
-export PATH DYLD_LIBRARY_PATH
+export PATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH DYLD_FALLBACK_FRAMEWORK_PATH
 
 # Enable SDKMAN
 export SDKMAN_DIR="${HOME}/.sdkman"
