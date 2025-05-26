@@ -5,7 +5,7 @@
 [core]
 	editor = nvim
 	autocrlf = input
-	pager = delta
+	pager = delta --line-numbers 
 
 [http]
 	sslVerify = false
@@ -24,3 +24,6 @@
 
 [diff]
     colorMoved = default
+
+[pull]
+    rebase = false
