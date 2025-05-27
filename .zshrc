@@ -15,6 +15,8 @@ export ZPLUG_HOME="${DATA_HOME}/.zplug"
 export ZPLUG_BIN="${ZPLUG_HOME}/bin"
 export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
 export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
+export ICLOUD_DIR="/Users/${USER}/Library/Mobile Documents/com~apple~CloudDocs"
+export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
 
 # Add homebrew executables to PATH
 HOMEBREW_HOME="/opt/homebrew"
@@ -61,6 +63,7 @@ SAVEHIST=10000
 #
 setopt autocd         # change to given directory
 setopt append_history # do not overwrite history
+setopt globdots       # show hidden files
 
 # Use emacs-like keybindings
 bindkey -e
@@ -68,8 +71,10 @@ bindkey -e
 # Basic auto/tab completion
 fpath=(/usr/local/share/zsh/completion/_docker $fpath)
 fpath=(/usr/local/share/zsh/completion/_docker-compose $fpath)
+fpath=(/Users/vagmcs/.docker/completions $fpath)
 autoload -Uz compinit & compinit -u
-_comp_options+=(globdots)
+
+# Enable autocompletion arrow-key driven interface
 zstyle ':completion:*' menu select
 zstyle :compinstall filename '${HOME}/.zshrc'
 
@@ -101,11 +106,11 @@ function pyenv_setup {
 
 # Luminance
 function lum() {
-  if [ -z "$1" ] || [ "$1" = "--help" ]; then
-    printf "%s\n" "Usage: lum integer"
-    return 0
-  fi
-  m1ddc set luminance $1 > /dev/null
+    if [ -z "$1" ] || [ "$1" = "--help" ]; then
+        printf "%s\n" "Usage: lum integer"
+        return 0
+    fi
+    m1ddc set luminance $1 > /dev/null
 }
 
 #
@@ -130,8 +135,8 @@ alias search="fzf --preview 'bat --style=numbers --color=always --line-range :50
 
 # Colorful commands
 alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
-alias ccat='bat'
-alias du='ncdu -rx --exclude .git'
+alias cat='bat'
+alias du='dua i'
 alias grep='grep --color=auto'
 alias wget="wget --no-hsts"
 
@@ -161,7 +166,7 @@ fi
 
 # Add home local executables to PATH
 if [ -d "${HOME_LOCAL}/bin" ]; then
-  PATH="${HOME_LOCAL}/bin:${PATH}"
+    PATH="${HOME_LOCAL}/bin:${PATH}"
 fi
 
 # GNU coreutils
@@ -193,6 +198,8 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
 # Auto-attach Zellij
-#export ZELLIJ_AUTO_ATTACH=true
-#eval "$(zellij setup --generate-auto-start zsh)"
+export ZELLIJ_AUTO_ATTACH=true
+if [ "${TERM_PROGRAM}" != "vscode" ]; then
+    eval "$(zellij setup --generate-auto-start zsh)"
+fi
 

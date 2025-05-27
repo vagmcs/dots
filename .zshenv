@@ -6,7 +6,6 @@ export STATE_HOME="${HOME}/.local/state"
 
 # Bash
 export LESSHISTFILE=-
-export GNUPGHOME="${DATA_HOME}/gnupg"
 export ICEAUTHORITY="${CACHE_HOME}/ICEauthority"
 export ENHANCD_DIR="${DATA_HOME}/enhancd"
 export BASH_COMPLETION_USER_FILE="${CONFIG_HOME}"/bash-completion/bash_completion
