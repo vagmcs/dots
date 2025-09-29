@@ -1,0 +1,14 @@
+theme = nord
+macos-icon = xray
+background-opacity = 0.95
+
+title = happy hacking
+
+font-family = "Zed Plex Mono" 
+font-size = 16 
+font-thicken = true
+
+window-height = 25
+window-width = 120
+confirm-close-surface = false
+quit-after-last-window-closed = true
