@@ -1,1 +1,1 @@
-require("vagmcs")
+require("config.lazy")

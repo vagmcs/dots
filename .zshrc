@@ -21,6 +21,7 @@ export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
 # Add homebrew executables to PATH
 HOMEBREW_HOME="/opt/homebrew"
 export PATH="${HOMEBREW_HOME}/bin:${PATH}"
+export PATH="${HOMEBREW_HOME}/opt/openvpn/sbin:${PATH}"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -33,8 +34,6 @@ source "${ZPLUG_HOME}"/init.zsh
 
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "b4b4r07/enhancd", from:github
-zplug "mafredri/zsh-async", from:github
 zplug "darvid/zsh-poetry", from:github
 
 # Install plugins if plugins exist that have not been installed
@@ -58,6 +57,11 @@ HISTSIZE=10000
 HISTFILESIZE=5000
 SAVEHIST=10000
 
+# History search using fzf
+export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+source <(fzf --zsh)
+
+
 #
 # SHELL CONFIG
 #
@@ -65,8 +69,8 @@ setopt autocd         # change to given directory
 setopt append_history # do not overwrite history
 setopt globdots       # show hidden files
 
-# Use emacs-like keybindings
-bindkey -e
+# Use vim-like keybindings
+bindkey -v
 
 # Basic auto/tab completion
 fpath=(/usr/local/share/zsh/completion/_docker $fpath)
@@ -88,6 +92,9 @@ less_termcap[md]="${fg_bold[blue]}"
 source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+# Enable zoxide
+eval "$(zoxide init zsh)"
 
 # Enable pyenv
 eval "$(pyenv init --path)"
@@ -113,6 +120,39 @@ function lum() {
     m1ddc set luminance $1 > /dev/null
 }
 
+# Yazi wrapper that allows to change the current working directory
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# Search the web
+function search() {
+  local url="https:unduck.link/?q="
+
+  while [[ $# -gt 0 ]]; do
+    url="${url}$1+"
+    shift
+  done
+
+  open "${url%?}" &>/dev/null
+}
+
+# Connect using OpenVPN
+function ovpn() {
+  local ovpn_dir="${HOME}/.config/ovpn"  # Change this to your directory
+  local selected=$(find "$ovpn_dir" -name "*.ovpn" -type f | fzf --prompt="Select VPN: " --height=40% --reverse)
+
+  if [[ -n "$selected" ]]; then
+    echo "Connecting to: $selected"
+    sudo openvpn --config "$selected"
+  fi
+}
+
+
 #
 # ALIASES
 #
@@ -121,17 +161,15 @@ alias zj='zellij'
 alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.12'
 
 # Moving around
-alias ..='cd ..'
-alias .2='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
+alias cd='z'
+alias ..='z ..'
+alias .2='z ../..'
+alias .3='z ../../..'
+alias .4='z ../../../..'
+alias .5='z ../../../../..'
 alias ls='eza -l --group-directories-first --icons'
 alias la='eza -la --group-directories-first --icons'
 alias lt='eza -aT --group-directories-first --icons'
-
-# Searching
-alias search="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
 # Colorful commands
 alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
@@ -140,11 +178,9 @@ alias du='dua i'
 alias grep='grep --color=auto'
 alias wget="wget --no-hsts"
 
-# History search
-alias hs='cat ${HISTFILE} | grep'
-
 # Bare repo
 alias config="git --git-dir=${HOME}/Developer/projects/dots --work-tree=${HOME}"
+
 
 #
 # PATH
@@ -196,10 +232,4 @@ export PATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH DYLD_FALLBACK_FRAMEWORK_PATH
 # Enable SDKMAN
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-
-# Auto-attach Zellij
-export ZELLIJ_AUTO_ATTACH=true
-if [ "${TERM_PROGRAM}" != "vscode" ]; then
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
 
