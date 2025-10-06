@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+CACHE="$HOME/.cache/cht_sh_cached_list"
+
+# Cache list on first run
+if [ ! -f "$CACHE" ]; then
+  mkdir -p "$(dirname "$CACHE")"
+  echo "Downloading cht.sh list..."
+  curl -s cht.sh/:list >"$CACHE"
+fi
+
+# Select topic
+selected=$(cat "$CACHE" | fzf --reverse --height 75% --border --prompt='CHEAT.SH> ' \
+  --preview='curl -s cht.sh/{}' --preview-window=right:80% \
+  --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down')
+[ -z "$selected" ] && exit 0
+
+# Check for subtopics
+topic_list=$(curl -s "cht.sh/$selected/:list")
+if [ -n "$topic_list" ] && ! echo "$topic_list" | grep -q "404"; then
+  query=$(echo "$topic_list" | fzf --reverse --height 75% --border \
+    --prompt="$(echo "$selected" | tr "[:upper:]")> " \
+    --preview="curl -s cht.sh/$selected/{}" --preview-window=right:80% \
+    --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down')
+  [ -n "$query" ] && selected="$selected/$query"
+fi
+
+curl "cht.sh/$selected"
