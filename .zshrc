@@ -72,6 +72,11 @@ setopt globdots       # show hidden files
 # Use vim-like keybindings
 bindkey -v
 
+# Enable zsh syntax highlighting and autosuggestions
+source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 # Basic auto/tab completion
 fpath=(/usr/local/share/zsh/completion/_docker $fpath)
 fpath=(/usr/local/share/zsh/completion/_docker-compose $fpath)
@@ -87,11 +92,6 @@ eval "$(starship init zsh)"
 
 # Select man pages color
 less_termcap[md]="${fg_bold[blue]}"
-
-# Enable zsh syntax highlighting and autosuggestions
-source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Enable zoxide
 eval "$(zoxide init zsh)"
@@ -204,6 +204,9 @@ fi
 if [ -d "${HOME_LOCAL}/bin" ]; then
     PATH="${HOME_LOCAL}/bin:${PATH}"
 fi
+
+# Tmux session wizard
+export PATH=$HOME/.config/tmux/plugins/tmux-session-wizard/bin:$PATH
 
 # GNU coreutils
 PATH="${HOMEBREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
