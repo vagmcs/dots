@@ -12,3 +12,5 @@ window-height = 25
 window-width = 120
 confirm-close-surface = false
 quit-after-last-window-closed = true
+
+command = /opt/homebrew/bin/tmux new-session -A -s main

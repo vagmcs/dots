@@ -17,3 +17,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- Paste and keep the copied text into the clipboard
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- Delete keymaps
+vim.keymap.del("n", "<leader>L")
+vim.keymap.del("n", "<leader>fT")

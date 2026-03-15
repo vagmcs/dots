@@ -12,4 +12,9 @@ return {
       },
     },
   },
+  keys = {
+    -- disable the keymap
+    { "<leader>e", false },
+    { "<leader>E", false },
+  },
 }
