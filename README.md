@@ -1,19 +1,15 @@
 # Dots
 
-Personal configuration files managed using [GNU Stow](https://www.gnu.org/software/stow/).
-
-## Overview
-
-This repository contains my personal dotfiles for macOS, organized for easy deployment using GNU Stow. The configurations follow the XDG Base Directory specification where possible, keeping the home directory clean and organized.
+Personal configuration files for macOS managed using [GNU Stow](https://www.gnu.org/software/stow/). The configurations follow the XDG Base Directory specification where possible, keeping the home directory clean and organized.
 
 ## Features
 
-- **Shell Configuration**: Zsh configuration
-- **Terminal Emulator**: Ghostty configuration
-- **Window Management**: AeroSpace window manager
-- **Editor**: Neovim configuration
-- **Terminal Multiplexers**: Tmux
-- **File Manager**: Yazi configuration
+- **Shell Configuration**: Zsh
+- **Terminal Emulator**: Ghostty
+- **Window Manager**: Aerospace
+- **Editor**: Neovim
+- **Terminal Multiplexer**: Tmux
+- **File Manager**: Yazi
 - **Development Tools**: Git, IPython, and various CLI utilities
 - **Monitoring**: btop, k9s
 - **Utilities**: bat, spotify-player, posting, and more
@@ -22,9 +18,7 @@ This repository contains my personal dotfiles for macOS, organized for easy depl
 
 ## Prerequisites
 
-- [Homebrew](https://brew.sh/)
-
-Install prerequisites:
+Install [Homebrew](https://brew.sh/):
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
