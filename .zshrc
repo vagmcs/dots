@@ -178,9 +178,6 @@ alias du='dua i'
 alias grep='grep --color=auto'
 alias wget="wget --no-hsts"
 
-# Bare repo
-alias config="git --git-dir=${HOME}/Developer/projects/dots --work-tree=${HOME}"
-
 
 #
 # PATH
