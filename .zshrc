@@ -233,3 +233,6 @@ export PATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH DYLD_FALLBACK_FRAMEWORK_PATH
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    tmux new-session -A -s main
+fi
