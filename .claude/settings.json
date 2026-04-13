@@ -1,0 +1,24 @@
+{
+  "voiceEnabled": true,
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(basename *)",
+      "Bash(date *)",
+      "Bash(tr *)",
+      "Bash(obsidian *)"
+    ],
+    "ask": [
+      "Read",
+      "Edit",
+      "Write"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Read(**/.env*)"
+    ]
+  }
+}

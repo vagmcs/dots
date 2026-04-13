@@ -16,6 +16,7 @@ export ZPLUG_BIN="${ZPLUG_HOME}/bin"
 export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
 export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
 export ICLOUD_DIR="/Users/${USER}/Library/Mobile Documents/com~apple~CloudDocs"
+export OBSIDIAN_VAULT="/Users/${USER}/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes"
 export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
 
 # Add homebrew executables to PATH
@@ -158,6 +159,8 @@ function ovpn() {
 #
 alias vim='nvim'
 alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.12'
+alias vault='cd ${OBSIDIAN_VAULT}'
+alias marp-pdf='marp --pdf --browser-path /Applications/Helium.app/Contents/MacOS/Helium'
 
 # Moving around
 alias cd='z'
@@ -231,6 +234,9 @@ export PATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH DYLD_FALLBACK_FRAMEWORK_PATH
 # Enable SDKMAN
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+# Obsidian
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
 
 # Run Tmux
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
