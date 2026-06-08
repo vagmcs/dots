@@ -11,10 +11,6 @@
 export LANG=en_US.UTF-8
 export TERM="xterm-256color"
 export EDITOR=nvim
-export ZPLUG_HOME="${DATA_HOME}/.zplug"
-export ZPLUG_BIN="${ZPLUG_HOME}/bin"
-export ZPLUG_REPOS="${ZPLUG_HOME}/repos"
-export ZPLUG_CACHE_DIR="${ZPLUG_HOME}/cache"
 export ICLOUD_DIR="/Users/${USER}/Library/Mobile Documents/com~apple~CloudDocs"
 export OBSIDIAN_VAULT="/Users/${USER}/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes"
 export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
@@ -24,30 +20,18 @@ HOMEBREW_HOME="/opt/homebrew"
 export PATH="${HOMEBREW_HOME}/bin:${PATH}"
 export PATH="${HOMEBREW_HOME}/opt/openvpn/sbin:${PATH}"
 
+# Command Not Found Handler
+HOMEBREW_COMMAND_NOT_FOUND="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
+if [ -f "$HOMEBREW_COMMAND_NOT_FOUND" ]; then
+  source "$HOMEBREW_COMMAND_NOT_FOUND";
+fi
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 
-#
-# PLUGINS
-#
-source "${ZPLUG_HOME}"/init.zsh
-
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "darvid/zsh-poetry", from:github
-
-# Install plugins if plugins exist that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Source plugins and add commands to PATH
-zplug load
-
+#zplug "plugins/colored-man-pages", from:oh-my-zsh
+#zplug "darvid/zsh-poetry", from:github
 
 #
 # HISTORY
@@ -82,7 +66,13 @@ source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fpath=(/usr/local/share/zsh/completion/_docker $fpath)
 fpath=(/usr/local/share/zsh/completion/_docker-compose $fpath)
 fpath=(/Users/vagmcs/.docker/completions $fpath)
-autoload -Uz compinit & compinit -u
+
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
+  compinit -C  # skip security check, dump is fresh
+else
+  compinit -u  # full init, dump is stale or missing
+fi
 
 # Enable autocompletion arrow-key driven interface
 zstyle ':completion:*' menu select
@@ -92,25 +82,10 @@ zstyle :compinstall filename '${HOME}/.zshrc'
 eval "$(starship init zsh)"
 
 # Select man pages color
-less_termcap[md]="${fg_bold[blue]}"
+#less_termcap[md]="${fg_bold[blue]}"
 
 # Enable zoxide
 eval "$(zoxide init zsh)"
-
-# Enable pyenv
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-function pyenv_setup {
-    export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
-    export PYTHON_CONFIGURE_OPTS="--enable-framework"
-    pyenv install $1
-    pyenv shell $1
-    pip install --upgrade pip
-    pip install poetry ipython numpy pandas
-    poetry self add poetry-docker-plugin
-}
 
 # Luminance
 function lum() {
@@ -132,7 +107,7 @@ function y() {
 
 # Search the web
 function search() {
-  local url="https:unduck.link/?q="
+  local url="https://duckduckgo.com/?q="
 
   while [[ $# -gt 0 ]]; do
     url="${url}$1+"
@@ -153,6 +128,10 @@ function ovpn() {
   fi
 }
 
+function autocommit() {
+  local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+  git add -A && git commit -m "autocommit: ${timestamp}"
+}
 
 #
 # ALIASES
@@ -216,6 +195,9 @@ PATH="${HOME_OPT}/scalatikz/bin:${PATH}"
 # Rust
 PATH="${HOME}/.cargo/bin:${PATH}"
 
+# Obsidian
+PATH="/Applications/Obsidian.app/Contents/MacOS:${PATH}"
+
 # Add native libraries
 PATH="/Library/gurobi_server1200/macos_universal2/bin:${PATH}"
 DYLD_LIBRARY_PATH="${HOMEBREW_HOME}/Cellar/lp_solve/5.5.2.11/lib:${DYLD_LIBRARY_PATH}"
@@ -228,17 +210,26 @@ source "${HOME}/.private"
 # Enable Cargo environment
 source "${HOME}/.cargo/env"
 
-# Export variables 
+# Export variables
 export PATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH DYLD_FALLBACK_FRAMEWORK_PATH
 
 # Enable SDKMAN
 export SDKMAN_DIR="${HOME}/.sdkman"
-[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+export JAVA_HOME="${SDKMAN_DIR}/candidates/java/current"
+export PATH="${SDKMAN_DIR}/candidates/java/current/bin:$PATH"
+export PATH="${SDKMAN_DIR}/candidates/sbt/current/bin:$PATH"
+export PATH="${SDKMAN_DIR}/candidates/scala/current/bin:$PATH"
+export PATH="${SDKMAN_DIR}/candidates/scalacli/current/bin:$PATH"
 
-# Obsidian
-export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+# Only init sdkman CLI when you actually call sdk
+sdk() {
+  unfunction sdk
+  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+  sdk "$@"
+}
 
 # Run Tmux
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux new-session -A -s main
 fi
+
