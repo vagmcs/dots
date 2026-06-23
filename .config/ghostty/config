@@ -11,5 +11,5 @@ font-thicken = true
 window-height = 25
 window-width = 120
 confirm-close-surface = false
+macos-titlebar-proxy-icon = hidden
 quit-after-last-window-closed = true
-
