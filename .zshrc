@@ -29,9 +29,8 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-
-#zplug "plugins/colored-man-pages", from:oh-my-zsh
-#zplug "darvid/zsh-poetry", from:github
+# Source plugins
+eval "$(sheldon source)"
 
 #
 # HISTORY
@@ -81,8 +80,20 @@ zstyle :compinstall filename '${HOME}/.zshrc'
 # Enable starship prompt 
 eval "$(starship init zsh)"
 
-# Select man pages color
-#less_termcap[md]="${fg_bold[blue]}"
+# Man pages colors
+autoload -U colors && colors
+function man() {
+    env \
+        LESS_TERMCAP_md="${fg_bold[blue]}" \
+        LESS_TERMCAP_me="${reset_color}" \
+        LESS_TERMCAP_mb="${fg_bold[red]}" \
+        LESS_TERMCAP_us="${fg[green]}" \
+        LESS_TERMCAP_ue="${reset_color}" \
+        LESS_TERMCAP_so="${fg_bold[yellow]}" \
+        LESS_TERMCAP_se="${reset_color}" \
+        PAGER="${commands[less]:-$PAGER}" \
+        man "$@"
+}
 
 # Enable zoxide
 eval "$(zoxide init zsh)"
@@ -133,6 +144,7 @@ function autocommit() {
   git add -A && git commit -m "autocommit: ${timestamp}"
 }
 
+
 #
 # ALIASES
 #
@@ -140,6 +152,7 @@ alias vim='nvim'
 alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.12'
 alias vault='cd ${OBSIDIAN_VAULT}'
 alias marp-pdf='marp --pdf --browser-path /Applications/Helium.app/Contents/MacOS/Helium'
+alias lzd='lazydocker'
 
 # Moving around
 alias cd='z'
@@ -228,8 +241,6 @@ sdk() {
   sdk "$@"
 }
 
-# Run Tmux
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux new-session -A -s main
-fi
+# Export docker host
+export DOCKER_HOST="unix:///var/run/docker.sock"
 

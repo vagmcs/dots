@@ -22,4 +22,7 @@ _darcs
 
 .DS_Store
 
+.metals
+.bsp
+
 Brewfile
