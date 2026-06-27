@@ -167,3 +167,7 @@ run = 'move-node-to-workspace M'
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = 'move-node-to-workspace L'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.FaceTime'
+run = ['layout floating']
