@@ -14,20 +14,30 @@ run = "plugin duckdb -ui"
 desc = "Open Duckdb UI"
 
 [[mgr.prepend_keymap]]
-on   = [ "g", "l" ]
-run  = "plugin lazygit"
+on = ["g", "l"]
+run = "plugin lazygit"
 desc = "Open lazygit"
 
 [[mgr.prepend_keymap]]
-on   = [ "c", "a" ]
-run  = "plugin compress"
+on = ["c", "a"]
+run = "plugin compress"
 desc = "Archive selected files"
 
 [[mgr.prepend_keymap]]
-on   = [ "c", "m" ]
-run  = "plugin chmod"
+on = ["c", "m"]
+run = "plugin chmod"
 desc = "Chmod on selected files"
 
 [[mgr.prepend_keymap]]
-on  = "M"
+on = ["c", "p"]
+run = "plugin pandoc"
+desc = "Pandoc convert"
+
+[[mgr.prepend_keymap]]
+on = "T"
+run = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
+
+[[mgr.prepend_keymap]]
+on = "M"
 run = "plugin mount"

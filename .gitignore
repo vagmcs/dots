@@ -1,4 +1,5 @@
-plugins
+.config/yazi/plugins
+.config/tmux/plugins
 flavors
 .bsp
 .metals

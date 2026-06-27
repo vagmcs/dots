@@ -33,6 +33,16 @@ use = "yazi-rs/plugins:mount"
 rev = "38efe09"
 hash = "e3260d0b1feded8c8e3ae3afa1169e30"
 
+[[plugin.deps]]
+use = "lmnek/pandoc"
+rev = "fd2798b"
+hash = "5af4b06948bb7b825a243131eea2075c"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "39aaf6d"
+hash = "15e5b67a241172cbb86b8fbf9e63692"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "8e6296f"
