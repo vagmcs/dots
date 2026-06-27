@@ -2,6 +2,9 @@
 	name = Evangelos Michelioudakis
 	email = vagmcs@gmail.com
 
+[init]
+	defaultBranch = main
+
 [core]
 	editor = nvim
 	autocrlf = input
@@ -25,8 +28,17 @@
 [diff]
     colorMoved = default
 
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
 [pull]
     rebase = false
+
+[push]
+	default = current
+	autoSetupRemote = true
 
 [alias]
     l  = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --
