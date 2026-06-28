@@ -1,7 +1,9 @@
-.config/yazi/plugins
-.config/tmux/plugins
-flavors
 .bsp
 .metals
 .scala-build
 .DS_Store
+
+flavors
+.config/yazi/plugins
+.config/tmux/plugins
+.config/k9s/aliases.yaml

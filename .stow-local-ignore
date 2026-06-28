@@ -26,3 +26,5 @@ _darcs
 .bsp
 
 Brewfile
+
+.shellcheckrc
