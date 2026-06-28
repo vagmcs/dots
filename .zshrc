@@ -118,7 +118,7 @@ function y() {
 
 # Search the web
 function search() {
-  local url="https://duckduckgo.com/?q="
+  local url="https://search.brave.com/search?q="
 
   while [[ $# -gt 0 ]]; do
     url="${url}$1+"
