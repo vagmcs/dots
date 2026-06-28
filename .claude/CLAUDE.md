@@ -37,4 +37,5 @@
 
 ## Personal Obsidian Vault
 My personal knowledge vault is at `$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes`.
+Feel free to use the /query skill to search the knowledge vault for additional context.
 The vault's own CLAUDE.md contains the full directory structure, page schema, and wiki conventions. Always read it before performing any operations.

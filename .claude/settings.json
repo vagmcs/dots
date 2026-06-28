@@ -1,7 +1,5 @@
 {
-  "voiceEnabled": true,
   "permissions": {
-    "defaultMode": "default",
     "allow": [
       "WebSearch",
       "WebFetch",
@@ -10,15 +8,16 @@
       "Bash(tr *)",
       "Bash(obsidian *)"
     ],
-    "ask": [
-      "Read",
-      "Edit",
-      "Write"
-    ],
     "deny": [
       "Bash(rm -rf *)",
       "Bash(sudo *)",
       "Read(**/.env*)"
-    ]
-  }
+    ],
+    "defaultMode": "default"
+  },
+  "model": "opus",
+  "theme": "auto",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": true
 }
