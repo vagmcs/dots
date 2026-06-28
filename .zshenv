@@ -25,6 +25,9 @@ export GOMODCACHE="${CACHE_HOME}/go/mod"
 # Ollama
 export OLLAMA_MODELS="${DATA_HOME}/ollama/models"
 
+# k9s
+export K9S_CONFIG_DIR="${CONFIG_HOME}/k9s"
+
 # TeX
 export TEXMFHOME="${DATA_HOME}/texmf"
 export TEXMFVAR="${CACHE_HOME}/texlive/texmf-var"
