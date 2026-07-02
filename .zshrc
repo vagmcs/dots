@@ -148,6 +148,7 @@ function autocommit() {
 #
 # ALIASES
 #
+alias v='nvim'
 alias vim='nvim'
 alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.12'
 alias vault='cd ${OBSIDIAN_VAULT}'
