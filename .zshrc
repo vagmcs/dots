@@ -41,7 +41,7 @@ HISTSIZE=10000
 HISTFILESIZE=5000
 SAVEHIST=10000
 
-# History search using fzf
+# History search using fzf (navigate right pane using shift + arrow keys)
 export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 source <(fzf --zsh)
 
@@ -197,7 +197,7 @@ if [ -d "${HOME_LOCAL}/bin" ]; then
     PATH="${HOME_LOCAL}/bin:${PATH}"
 fi
 
-# Tmux session wizard
+# tmux session wizard (use t command to select a path or specify one)
 export PATH=$HOME/.config/tmux/plugins/tmux-session-wizard/bin:$PATH
 
 # GNU coreutils
