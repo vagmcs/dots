@@ -1,15 +1,21 @@
-theme = tokyonight 
+theme = Catppuccin Mocha
 macos-icon = xray
 background-opacity = 0.95
+background-blur-radius = 20
 
 title = happy hacking
 
-font-family = "Zed Plex Mono" 
-font-size = 16 
+font-family = "Jetbrains Mono" 
+font-size = 18 
 font-thicken = true
 
 window-height = 25
 window-width = 120
 confirm-close-surface = false
+mouse-hide-while-typing = true
+macos-titlebar-style = hidden
 macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
 quit-after-last-window-closed = true
+
+custom-shader = shaders/space.glsl
