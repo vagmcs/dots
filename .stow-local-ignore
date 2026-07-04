@@ -28,3 +28,5 @@ _darcs
 Brewfile
 
 .shellcheckrc
+
+vimium_c.json  # vimium extension theme
