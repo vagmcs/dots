@@ -1,3 +1,6 @@
+[include]
+	path = ~/.config/delta/themes/catppuccin.gitconfig
+
 [user]
 	name = Evangelos Michelioudakis
 	email = vagmcs@gmail.com
@@ -24,6 +27,7 @@
 	line-numbers = true
 	side-by-side = true
 	hyperlinks = true
+	features = catppuccin-mocha
 
 [diff]
     colorMoved = default
