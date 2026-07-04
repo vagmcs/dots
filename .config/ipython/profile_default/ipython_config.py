@@ -9,6 +9,11 @@ c = get_config()  # type: ignore
 c.InteractiveShell.autoindent = True
 c.InteractiveShell.confirm_exit = False
 
+# syntax highlighting
+c.TerminalInteractiveShell.true_color = True
+c.TerminalInteractiveShell.highlighting_style = "catppuccin-mocha"
+
+# suppress warnings
 c.InteractiveShellApp.exec_lines = [
     "import warnings",
     'warnings.filterwarnings("ignore", message=".*virtualenv.*")',
