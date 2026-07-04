@@ -16,7 +16,7 @@
     "defaultMode": "default"
   },
   "model": "opus",
-  "theme": "auto",
+  "theme": "custom:catppuccin",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "voiceEnabled": true
