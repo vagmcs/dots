@@ -4,7 +4,7 @@ Personal configuration files for macOS managed using [GNU Stow](https://www.gnu.
 
 ## Features
 
-- **Shell Configuration**: Zsh
+- **Shell Configuration**: Zsh + sheldon for plugins
 - **Terminal Emulator**: Ghostty
 - **Window Manager**: Aerospace
 - **Editor**: Neovim
@@ -12,7 +12,7 @@ Personal configuration files for macOS managed using [GNU Stow](https://www.gnu.
 - **File Manager**: Yazi
 - **Development Tools**: Git, IPython, and various CLI utilities
 - **Monitoring**: btop, k9s
-- **Utilities**: bat, spotify-player, posting, and more
+- **Utilities**: bat, hunk, opencode and more
 - **Prompt**: Starship cross-shell prompt
 - **Package Management**: Brewfile for macOS packages
 
@@ -55,19 +55,25 @@ exec zsh
 │   ├── aerospace/      # AeroSpace window manager
 │   ├── bat/            # bat (cat alternative)
 │   ├── btop/           # System monitor
+│   ├── delta/          # Git diff pager
 │   ├── ghostty/        # Ghostty terminal
 │   ├── git/            # Git configuration
+│   ├── hunk/           # hunk configuration
 │   ├── ipython/        # IPython configuration
 │   ├── k9s/            # Kubernetes CLI
+│   ├── lazydocker/     # Docker TUI
+│   ├── mpd/            # Music Player Daemon
 │   ├── nvim/           # Neovim configuration
-│   ├── posting/        # API testing tool
-│   ├── spotify-player/ # Spotify TUI
+│   ├── opencode/       # OpenCode configuration
+│   ├── rmpc/           # Rust MPD client
+│   ├── sheldon/        # Zsh plugin manager
 │   ├── starship.toml   # Starship prompt
 │   ├── tmux/           # Tmux configuration
-│   ├── yazi/           # File manager
-│   └── zellij/         # Terminal multiplexer
+│   ├── vimium_c.json   # Vimium C configuration
+│   └── yazi/           # File manager
 ├── .local/
 │   └── bin/            # Custom scripts
+├── .shellcheckrc       # ShellCheck configuration
 ├── .stow-local-ignore  # Stow ignore patterns
 ├── .zshenv             # Zsh environment variables
 ├── .zshrc              # Zsh configuration
@@ -100,3 +106,10 @@ The `.stow-local-ignore` file prevents certain files from being symlinked:
 
 These are my personal dotfiles. Feel free to use anything you find useful, but please review and understand the configurations before applying them to your own system.
 
+## Inspired By
+
+- [Devops Toolbox](https://www.youtube.com/@devopstoolbox)
+- [ThePrimagen](https://www.youtube.com/@ThePrimeTimeagen)
+- [DHH](https://www.youtube.com/@dhh37)
+- [Josean Martinez](https://www.youtube.com/@joseanmartinez)
+- [Felix Kratz](https://github.com/FelixKratz)
