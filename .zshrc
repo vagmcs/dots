@@ -63,6 +63,7 @@ setopt globdots       # show hidden files
 
 # Use vim-like keybindings
 bindkey -v
+bindkey jk vi-cmd-mode
 
 # Enable zsh syntax highlighting and autosuggestions
 source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -170,9 +171,9 @@ alias .2='z ../..'
 alias .3='z ../../..'
 alias .4='z ../../../..'
 alias .5='z ../../../../..'
-alias ls='eza -l --group-directories-first --icons'
-alias la='eza -la --group-directories-first --icons'
-alias lt='eza -aT --group-directories-first --icons'
+alias ls='eza -l --group-directories-first --icons --git'
+alias la='eza -la --group-directories-first --icons --git'
+alias lt='eza -aT --group-directories-first --icons --git'
 
 # Colorful commands
 alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
