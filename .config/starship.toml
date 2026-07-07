@@ -29,7 +29,7 @@ behind = "↓"
 conflicted = "≠"
 
 [scala]
-symbol = "🛢️ "
+symbol = "🕹️ "
 format = "[${symbol}(${version} )]($style)"
 
 [gcloud]
