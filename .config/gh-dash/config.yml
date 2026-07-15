@@ -85,8 +85,13 @@ keybindings:
     - key: C
       name: code review
       command: >
-        tmux new-window -n {{.RepoPath}}
+        tmux new-window -n "{{.RepoName}}/PR-{{.PrNumber}}"
         'nvim -c ":silent Octo pr edit {{.PrNumber}}"'
+    - key: O
+      name: opencode review
+      command: >
+        tmux new-window -n "{{.RepoName}}/PR-{{.PrNumber}}"
+        'wt switch pr:{{.PrNumber}} -x "opencode --prompt `\review`"'
 repoPaths: {}
 theme:
   colors:
