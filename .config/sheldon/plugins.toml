@@ -16,4 +16,3 @@ shell = "zsh"
 
 [plugins.autoswitch]
 github = "MichaelAquilina/zsh-autoswitch-virtualenv"
-
