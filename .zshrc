@@ -16,7 +16,7 @@ export OBSIDIAN_VAULT="/Users/${USER}/Library/Mobile Documents/iCloud~md~obsidia
 export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
 
 # Add homebrew executables to PATH
-HOMEBREW_HOME="/opt/homebrew"
+HOMEBREW_HOME="$(brew --prefix)"
 export PATH="${HOMEBREW_HOME}/bin:${PATH}"
 export PATH="${HOMEBREW_HOME}/opt/openvpn/sbin:${PATH}"
 
@@ -49,10 +49,8 @@ HISTSIZE=10000
 HISTFILESIZE=5000
 SAVEHIST=10000
 
-# History search using fzf (navigate right pane using shift + arrow keys)
+# FZF history search (hint: navigate right pane using shift + arrow keys)
 export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-source <(fzf --zsh)
-
 
 #
 # SHELL CONFIG
@@ -65,26 +63,22 @@ setopt globdots       # show hidden files
 bindkey -v
 bindkey jk vi-cmd-mode
 
-# Enable zsh syntax highlighting and autosuggestions
-source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Runs compinit in a precmd hook, so there is no need to call compinit manually
 source ${HOMEBREW_HOME}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source ${HOMEBREW_HOME}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Basic auto/tab completion
-fpath=(/usr/local/share/zsh/completion/_docker $fpath)
-fpath=(/usr/local/share/zsh/completion/_docker-compose $fpath)
-fpath=(/Users/vagmcs/.docker/completions $fpath)
+# registers carapace completers (compdefs are queued by autocomplete)
+source <(carapace _carapace)
+source <(fzf --zsh)
 
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
-  compinit -C  # skip security check, dump is fresh
-else
-  compinit -u  # full init, dump is stale or missing
+# TAB opens a selectable menu instead of inserting a single match
+bindkey '^I' menu-select
+bindkey -M menuselect '^I' menu-complete
+if [[ -n $terminfo[kcbt] ]]; then
+  bindkey "$terminfo[kcbt]" menu-select
+  bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
 fi
-
-# Enable autocompletion arrow-key driven interface
-zstyle ':completion:*' menu select
-zstyle :compinstall filename '${HOME}/.zshrc'
 
 # Enable starship prompt 
 eval "$(starship init zsh)"
