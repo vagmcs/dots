@@ -26,7 +26,7 @@
     "show_menus": false
   },
   "tabs": {
-    "file_icons": false,
+    "file_icons": true,
     "git_status": false,
     "show_close_button": "hover"
   },
