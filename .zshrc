@@ -16,7 +16,7 @@ export OBSIDIAN_VAULT="/Users/${USER}/Library/Mobile Documents/iCloud~md~obsidia
 export ZSH_COMPDUMP="${CACHE_HOME}/zsh/.zcompdump-${HOST}"
 
 # Add homebrew executables to PATH
-HOMEBREW_HOME="$(brew --prefix)"
+HOMEBREW_HOME="/opt/homebrew"
 export PATH="${HOMEBREW_HOME}/bin:${PATH}"
 export PATH="${HOMEBREW_HOME}/opt/openvpn/sbin:${PATH}"
 
@@ -80,7 +80,7 @@ if [[ -n $terminfo[kcbt] ]]; then
   bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
 fi
 
-# Enable starship prompt 
+# Enable starship prompt
 eval "$(starship init zsh)"
 
 # Man pages colors
@@ -246,5 +246,6 @@ sdk() {
 }
 
 # Export docker host
+# Because of the following symlink, docker commands work using podman.sock
+# /var/run/docker.sock -> ~/.local/share/containers/podman/machine/podman.sock
 export DOCKER_HOST="unix:///var/run/docker.sock"
-
