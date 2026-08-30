@@ -101,6 +101,9 @@ function man() {
 # Enable zoxide
 eval "$(zoxide init zsh)"
 
+# Enable worktrunk
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
 # Luminance
 function lum() {
     if [ -z "$1" ] || [ "$1" = "--help" ]; then
@@ -157,6 +160,7 @@ alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.1
 alias vault='cd ${OBSIDIAN_VAULT}'
 alias marp-pdf='marp --pdf --browser-path /Applications/Helium.app/Contents/MacOS/Helium'
 alias lzd='lazydocker'
+alias q="opencode run"
 
 # Moving around
 alias cd='z'
@@ -168,6 +172,11 @@ alias .5='z ../../../../..'
 alias ls='eza -l --group-directories-first --icons --git'
 alias la='eza -la --group-directories-first --icons --git'
 alias lt='eza -aT --group-directories-first --icons --git'
+
+# Git
+alias glog='git log'
+alias gc='git commit -m'
+alias gco='git checkout'
 
 # Colorful commands
 alias df='duf -hide special -output mountpoint,size,used,avail,usage,type'
