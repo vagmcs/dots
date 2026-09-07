@@ -1,0 +1,20 @@
+theme = "catppuccin-mocha"
+appearance = "system"
+diff_view = "side-by-side"
+comment_vim = true
+relative_line_numbers = true
+
+comment_types = [
+  { id = "note", color = "yellow", definition = "ask for clarification" },
+  { id = "suggestion", color = "cyan", definition = "possible improvements" },
+  { id = "issue", color = "red", definition = "problems that should not be merged" },
+  { id = "praise", color = "green", definition = "positive feedback" },
+]
+
+[export]
+intro = "I reviewed the code and have the following comments. Please address them."
+scope_line = true
+pr_metadata = true
+comments_header = "## Comments"
+remote_comments_header = "## Existing Comments"
+legend = true
