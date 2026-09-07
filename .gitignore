@@ -3,9 +3,15 @@
 .scala-build
 .DS_Store
 
+db
+*.sqlite
+*.sql
+
 flavors
 .config/yazi/plugins
 .config/tmux/plugins
 .config/k9s/aliases.yaml
 .config/mpd/state
 .config/mpd/database
+
+README
