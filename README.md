@@ -12,7 +12,7 @@ Personal configuration files for macOS managed using [GNU Stow](https://www.gnu.
 - **File Manager**: Yazi
 - **Development Tools**: Git, IPython, and various CLI utilities
 - **Monitoring**: btop, k9s
-- **Utilities**: bat, hunk, opencode and more
+- **Utilities**: bat, tuicr, opencode and more
 - **Prompt**: Starship cross-shell prompt
 - **Package Management**: Brewfile for macOS packages
 

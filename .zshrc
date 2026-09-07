@@ -160,6 +160,7 @@ alias amm='scala-cli repl --power --ammonite --ammonite-version 2.5.11 -S 2.13.1
 alias vault='cd ${OBSIDIAN_VAULT}'
 alias marp-pdf='marp --pdf --browser-path /Applications/Helium.app/Contents/MacOS/Helium'
 alias lzd='lazydocker'
+alias oc="opencode"
 alias q="opencode run"
 
 # Moving around
