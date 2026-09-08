@@ -110,6 +110,5 @@ These are my personal dotfiles. Feel free to use anything you find useful, but p
 
 - [Devops Toolbox](https://www.youtube.com/@devopstoolbox)
 - [ThePrimagen](https://www.youtube.com/@ThePrimeTimeagen)
-- [DHH](https://www.youtube.com/@dhh37)
 - [Josean Martinez](https://www.youtube.com/@joseanmartinez)
 - [Felix Kratz](https://github.com/FelixKratz)
