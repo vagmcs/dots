@@ -89,20 +89,20 @@ cmd-alt-h = []
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
-# Applications
-ctrl-enter = '''exec-and-forget osascript -e '
+# Applications (sets hyper key to cmd-ctrl-alt-shift)
+cmd-ctrl-alt-shift-enter = '''exec-and-forget osascript -e '
 tell application "Ghostty"
     new window
 end tell'
 '''
-ctrl-m = 'exec-and-forget open -a /Applications/Spotify.app'
-ctrl-f = 'exec-and-forget open -a Finder'
-ctrl-o = 'exec-and-forget open -a /Applications/Obsidian.app'
-ctrl-e = 'exec-and-forget open -a Mail'
-ctrl-b = 'exec-and-forget open -a /Applications/Zen.app'
-ctrl-z = 'exec-and-forget open -a /Applications/Zotero.app'
-ctrl-t = 'exec-and-forget open -a ${HOME}/.local/bin/launch-btop.sh'
-ctrl-n = 'exec-and-forget open -a ${HOME}/.local/bin/launch-neovim.sh'
+cmd-ctrl-alt-shift-s = 'exec-and-forget open -a /Applications/Spotify.app'
+cmd-ctrl-alt-shift-f = 'exec-and-forget open -a Finder'
+cmd-ctrl-alt-shift-o = 'exec-and-forget open -a /Applications/Obsidian.app'
+cmd-ctrl-alt-shift-m = 'exec-and-forget open -a Mail'
+cmd-ctrl-alt-shift-b = 'exec-and-forget open -a /Applications/Zen.app'
+cmd-ctrl-alt-shift-l = 'exec-and-forget open -a /Applications/Zotero.app'
+cmd-ctrl-alt-shift-t = 'exec-and-forget open -a ${HOME}/.local/bin/launch-btop.sh'
+cmd-ctrl-alt-shift-e = 'exec-and-forget open -a ${HOME}/.local/bin/launch-neovim.sh'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
