@@ -23,6 +23,7 @@ _darcs
 .DS_Store
 
 .metals
+.scala-build
 .bsp
 
 Brewfile
