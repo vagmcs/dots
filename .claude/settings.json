@@ -15,9 +15,9 @@
     ],
     "defaultMode": "default"
   },
-  "model": "opus",
-  "theme": "custom:catppuccin",
+  "model": "opus[1m]",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:catppuccin",
   "voiceEnabled": true
 }
