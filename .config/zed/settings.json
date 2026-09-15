@@ -44,12 +44,12 @@
   },
   "bottom_dock_layout": "contained",
   "project_panel": {
+    "folder_indicator": "icon",
     "hide_hidden": false,
     "hide_root": false,
     "bold_folder_labels": false,
     "git_status": true,
     "file_icons": true,
-    "folder_icons": true,
     "entry_spacing": "standard",
     "hide_gitignore": false,
     "dock": "left"
