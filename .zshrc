@@ -44,13 +44,13 @@ eval "$(sheldon source)"
 # HISTORY
 #
 HISTFILE="${CACHE_HOME}/.zsh_history" # path should exist
-HISTCONTROL=ignoreboth  # don't save duplicate lines or lines starting with space
 HISTSIZE=10000
-HISTFILESIZE=5000
 SAVEHIST=10000
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE
 
 # FZF history search (hint: navigate right pane using shift + arrow keys)
-export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+# Replaced by Atuin handles Ctrl-R (uncomment if atuin is uninstalled)
+# export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 #
 # SHELL CONFIG
@@ -71,6 +71,10 @@ source ${HOMEBREW_HOME}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # registers carapace completers (compdefs are queued by autocomplete)
 source <(carapace _carapace)
 source <(fzf --zsh)
+
+# Init atuin after FZF so its history bindings take precedence
+export ATUIN_HOME="${HOME}/.config/atuin"
+eval "$(atuin init zsh)"
 
 # TAB opens a selectable menu instead of inserting a single match
 bindkey '^I' menu-select
