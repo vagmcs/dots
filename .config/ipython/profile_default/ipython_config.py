@@ -9,9 +9,9 @@ c = get_config()  # type: ignore
 c.InteractiveShell.autoindent = True
 c.InteractiveShell.confirm_exit = False
 
-# syntax highlighting
+# syntax highlighting (IPython 9+ uses themes instead of highlighting_style)
 c.TerminalInteractiveShell.true_color = True
-c.TerminalInteractiveShell.highlighting_style = "catppuccin-mocha"
+c.InteractiveShell.colors = "neutral"
 
 # suppress warnings
 c.InteractiveShellApp.exec_lines = [
