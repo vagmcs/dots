@@ -37,7 +37,7 @@ brew bundle install
 3. Deploy dotfiles with Stow
 
 ```bash
-stow -t ~ .
+stow --no-folding -t ~ .
 ```
 
 4. Restart your shell

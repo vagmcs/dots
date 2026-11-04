@@ -24,6 +24,7 @@ _darcs
 
 .metals
 .scala-build
+.ruff_cache
 .bsp
 
 Brewfile
