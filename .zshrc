@@ -214,9 +214,6 @@ if [ -d "${HOME_LOCAL}/bin" ]; then
     PATH="${HOME_LOCAL}/bin:${PATH}"
 fi
 
-# tmux session wizard (use t command to select a path or specify one)
-export PATH=$HOME/.config/tmux/plugins/tmux-session-wizard/bin:$PATH
-
 # GNU coreutils
 PATH="${HOMEBREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
 
@@ -258,6 +255,9 @@ sdk() {
   [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
   sdk "$@"
 }
+
+# Pi coding agent directory
+export PI_CODING_AGENT_DIR="${HOME}/.config/pi"
 
 # Export docker host
 # Because of the following symlink, docker commands work using podman.sock

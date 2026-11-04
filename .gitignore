@@ -1,19 +1,10 @@
 .bsp
 .metals
 .scala-build
+.ruff_cache
 .DS_Store
 
-db
 *.sqlite
 *.sql
-
-flavors
-.config/yazi/plugins
-.config/tmux/plugins
-.config/k9s/aliases.yaml
-.config/mpd/state
-.config/mpd/database
-
-.claude/skills/synced
 
 README

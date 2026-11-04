@@ -1,0 +1,43 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+cache = false
+
+# Sessions
+[[session]]
+name = "notes"
+path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes"
+startup_command = "nvim ."
+windows = ["opencode"]
+
+[[session]]
+name = "dots"
+path = "~/Developer/projects/dots"
+startup_command = "nvim ."
+windows = ["opencode"]
+
+[[session]]
+name = "lab"
+path = "~/Developer/lab"
+windows = ["python", "opencode"]
+
+[[session]]
+name = "reviews"
+path = "dash"
+
+# Tools
+[[window]]
+name = "python"
+startup_script = "ipython"
+
+# AI agents
+[[window]]
+name = "opencode"
+startup_script = "opencode"
+
+[[window]]
+name = "codex"
+startup_script = "codex"
+
+[[window]]
+name = "pi"
+startup_script = "pi"
