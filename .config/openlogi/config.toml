@@ -1,0 +1,126 @@
+schema_version = 10
+
+[devices."serial:2225lz54eeq8"]
+dpi = 1000
+
+[devices."serial:2225lz54eeq8".identity]
+display_name = "MX Master 3S"
+codename = "MX Master 3S"
+kind = "mouse"
+
+[app_settings]
+launch_at_login = true
+check_for_updates = true
+auto_install_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+capture_mouse_events = true
+smooth_scroll = false
+vertical_scroll_sensitivity = 14
+app_icon = "openlogi"
+auto_download_assets = true
+asset_source = "automatic"
+thumbwheel_sensitivity = 14
+appearance = "system"
+ui_scale = "normal"
+device_view_mode = "grid"
+mouse_profile_target = "pointer"
+low_battery_notifications = true
+lock_key_notifications = true
+animate_desktop_switch = true
+
+[devices."serial:2225lz54eeq8".identity.model_info]
+entity_count = 3
+unit_id = [0, 0, 0, 0]
+model_ids = [45108, 0, 0]
+extended_model_id = 0
+
+[devices."serial:2225lz54eeq8".identity.model_info.transports]
+usb = false
+equad = false
+btle = true
+bluetooth = false
+
+[devices."serial:2225lz54eeq8".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = true
+fn_lock = false
+os_layout = false
+report_rate = false
+backlight = false
+easy_switch = true
+virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
+
+[devices."serial:2225lz54eeq8".links."receiver:a52ee2d2387ad22d:slot:2".capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = true
+fn_lock = false
+os_layout = false
+report_rate = false
+backlight = false
+easy_switch = true
+virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
+
+[devices."serial:2225lz54eeq8".bindings]
+ThumbwheelScrollUp = "None"
+ThumbwheelScrollDown = "None"
+GestureButton = "LaunchpadShow"
+
+[devices."serial:2225lz54eeq8".smartshift]
+mode = "ratchet"
+auto_disengage = 10
+tunable_torque = 0
+
+[devices."serial:2225lz54eeq8".disabled_gestures.GestureButton]
+Up = "MissionControl"
+Down = "ShowDesktop"
+Left = "PrevTab"
+Right = "NextTab"
+Click = "AppExpose"
+
+[devices."serial:2225lz54eeq8".action_ring]
+enabled = true
+haptics = true
+
+[keyboard]
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.TopRight]
+action = "Copy"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.Right]
+action = "Paste"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.BottomRight]
+action = "BrowserForward"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.Bottom]
+action = "PlayPause"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.BottomLeft]
+action = "BrowserBack"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.Left]
+action = "Undo"
+
+[devices."serial:2225lz54eeq8".action_ring.default.slots.TopLeft]
+action = "Redo"
