@@ -4,7 +4,7 @@
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders active_color=0xffeceff4 inactive_color=0xff494d64 width=5.0 hidpi=true',
+  'exec-and-forget borders active_color=0xffffffff inactive_color=0xff494d64 width=5.0 hidpi=on',
 ]
 
 # Start AeroSpace at login
@@ -162,28 +162,19 @@ z = ['exec-and-forget open -a /Applications/Zotero.app', 'mode main']
 i = ['exec-and-forget open -a /Applications/ChatGPT.app', 'mode main']
 t = ['exec-and-forget open -a ${HOME}/.local/bin/launch-btop.sh', 'mode main']
 e = ['exec-and-forget open -a ${HOME}/.local/bin/launch-neovim.sh', 'mode main']
-n = [
-  'exec-and-forget open -a ${HOME}/.local/bin/launch-scratchpad.sh',
-  'mode main',
-]
+n = ['exec-and-forget open -a ${HOME}/.local/bin/launch-scratchpad.sh', 'mode main']
 
 # Raycast deeplinks
 j = [
   'exec-and-forget open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols',
   'mode main',
 ]
-g = [
-  'exec-and-forget open raycast://extensions/josephschmitt/gif-search/search',
-  'mode main',
-]
+g = ['exec-and-forget open raycast://extensions/josephschmitt/gif-search/search', 'mode main']
 slash = [
   'exec-and-forget open raycast://extensions/raycast/navigation/search-menu-bar-items',
   'mode main',
 ]
-w = [
-  'exec-and-forget open raycast://extensions/limonkufu/aerospace/switchApps',
-  'mode main',
-]
+w = ['exec-and-forget open raycast://extensions/limonkufu/aerospace/switchApps', 'mode main']
 c = [
   'exec-and-forget open raycast://extensions/raycast/clipboard-history/clipboard-history',
   'mode main',
@@ -194,10 +185,7 @@ c = [
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = [
-  'layout floating tiling',
-  'mode main',
-] # Toggle between floating and tiling layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
