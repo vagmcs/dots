@@ -1,6 +1,7 @@
 brew "bash"
 brew "bat"
 brew "bazel"
+brew "bitwarden-cli"
 brew "btop"
 brew "buildifier"
 brew "cairo"
