@@ -2,6 +2,8 @@
 
 cache = false
 
+blacklist = ["scratch"]
+
 # Sessions
 [[session]]
 name = "notes"
