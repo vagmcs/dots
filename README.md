@@ -8,11 +8,13 @@ Personal configuration files for macOS managed using [GNU Stow](https://www.gnu.
 - **Terminal Emulator**: Ghostty
 - **Window Manager**: Aerospace
 - **Editor**: Neovim
-- **Terminal Multiplexer**: Tmux
+- **Terminal Multiplexer**: Tmux + sesh for session management
 - **File Manager**: Yazi
 - **Development Tools**: Git, IPython, and various CLI utilities
-- **Monitoring**: btop, k9s
-- **Utilities**: bat, tuicr, opencode and more
+- **Monitoring**: btop, k9s, lazydocker
+- **AI Coding Agents**: OpenCode and Pi
+- **Utilities**: bat, tuicr, bitwarden CLI
+- **Mouse Configuration**: OpenLogi for mouse configuration
 - **Prompt**: Starship cross-shell prompt
 - **Package Management**: Brewfile for macOS packages
 
@@ -65,7 +67,9 @@ exec zsh
 │   ├── mpd/            # Music Player Daemon
 │   ├── nvim/           # Neovim configuration
 │   ├── opencode/       # OpenCode configuration
+│   ├── openlogi/       # Logitech mouse configuration
 │   ├── rmpc/           # Rust MPD client
+│   ├── sesh/           # Tmux session manager
 │   ├── sheldon/        # Zsh plugin manager
 │   ├── starship.toml   # Starship prompt
 │   ├── tmux/           # Tmux configuration
