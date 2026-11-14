@@ -126,6 +126,52 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Manage the Bitwarden session and search logins
+function bw() {
+  case "$1" in
+    unlock)
+      local session
+      session=$(command bw "$@" --raw) || return
+      export BW_SESSION="$session"
+      ;;
+    lock|logout)
+      command bw "$@" || return
+      unset BW_SESSION
+      ;;
+    search)
+      local selected key id value field
+
+      selected=$(
+        command bw list items |
+          jq -r '
+            .[] | select(.type == 1) |
+            [.id, (.name + " (" + (.login.username // "") + ")")] | @tsv
+          ' |
+          fzf --delimiter '\t' --with-nth '2..' \
+              --height=60% --layout=reverse --border=rounded \
+              --border-label=' Bitwarden ' --info=inline \
+              --prompt='❯ ' --pointer='▌' --marker='✓' \
+              --header='Enter: copy pass · Ctrl-T: copy OTP · Esc: cancel' \
+              --expect=enter,ctrl-t \
+              --padding=1
+      ) || return
+
+      [[ -n "$selected" ]] || return
+      key="${selected%%$'\n'*}"
+      selected="${selected#*$'\n'}"
+      id="${selected%%$'\t'*}"
+
+      field=password
+      [[ "$key" == ctrl-t ]] && field=totp
+      value=$(command bw get "$field" "$id") || return
+      printf '%s' "$value" | pbcopy
+      ;;
+    *)
+      command bw "$@"
+      ;;
+  esac
+}
+
 # Search the web
 function search() {
   local url="https://search.brave.com/search?q="
